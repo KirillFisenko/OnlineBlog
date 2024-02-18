@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using OnlineBlog.Server.Data;
 using OnlineBlog.Server.Models;
@@ -8,8 +9,9 @@ using System.Security.Claims;
 
 namespace OnlineBlog.Server.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+    [Route("[controller]")]    
     public class AccountController : ControllerBase
     {
         private UsersService _usersService;
@@ -18,14 +20,14 @@ namespace OnlineBlog.Server.Controllers
             _usersService = new UsersService(dataContext);
         }
 
-        [HttpGet]
+        [HttpGet]        
         public IActionResult Get()
         {
             var currentUserEmail = HttpContext.User.Identity.Name;
             var currentUser = _usersService.GetUserByLogin(currentUserEmail);
             if (currentUser == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             return Ok(new UserModel()
@@ -40,7 +42,7 @@ namespace OnlineBlog.Server.Controllers
         }
 
         [HttpPost]
-        public ActionResult<UserModel> Create(UserModel user)
+        public ActionResult<UserModel> Create([FromBody] UserModel user)
         {
             var newuUser = _usersService.Create(user);
             return Ok(newuUser);
@@ -68,8 +70,9 @@ namespace OnlineBlog.Server.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        public ActionResult<UserModel> GetToken()
+        [HttpPost("token")]
+        [AllowAnonymous] // авторизация не нужна
+        public object GetToken()
         {
             // get user data from Db
             var userData = _usersService.GetUserLoginPassFromBasicAuth(Request);

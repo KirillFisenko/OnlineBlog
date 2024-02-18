@@ -13,6 +13,7 @@ namespace OnlineBlog.Server.Services
             _dataContext = dataContext;
         }
 
+        #region CRUD
         public User GetUserByLogin(string email)
         {
             return _dataContext.Users.FirstOrDefault(user => user.Email == email);
@@ -61,11 +62,13 @@ namespace OnlineBlog.Server.Services
             _dataContext.Users.Remove(user);
             _dataContext.SaveChanges();
         }
+        #endregion
 
+        #region Identity
         public (string login, string password) GetUserLoginPassFromBasicAuth(HttpRequest request)
         {
-            string userName = string.Empty;
-            string userPassword = string.Empty;
+            string userName ="";
+            string userPassword = "";
             string authHeader = request.Headers["Authorization"].ToString();
             if (authHeader != null && authHeader.StartsWith("Basic"))
             {
@@ -76,8 +79,8 @@ namespace OnlineBlog.Server.Services
                 userPassword = namePasswordArray[1];
             }
             return (userName, userPassword);
-        }
-
+        }       
+        
         public (ClaimsIdentity identity, Guid id)? GetIdentity(string email, string password)
         {
             User currentUser = GetUserByLogin(email);
@@ -87,7 +90,8 @@ namespace OnlineBlog.Server.Services
             }
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, currentUser.Email)
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, currentUser.Email),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, "User")
                 };
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(
                 claims,
@@ -101,5 +105,6 @@ namespace OnlineBlog.Server.Services
         {
             return password1 == password2;
         }
+        #endregion
     }
 }
