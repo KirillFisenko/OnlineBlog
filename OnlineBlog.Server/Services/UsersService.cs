@@ -1,4 +1,5 @@
 ﻿using OnlineBlog.Server.Data;
+using OnlineBlog.Server.Models;
 using System.Security.Claims;
 using System.Text;
 
@@ -6,6 +7,61 @@ namespace OnlineBlog.Server.Services
 {
     public class UsersService
     {
+        private AppDataContext _dataContext;
+        public UsersService(AppDataContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
+
+        public User GetUserByLogin(string email)
+        {
+            return _dataContext.Users.FirstOrDefault(user => user.Email == email);
+        }
+
+        public UserModel Create(UserModel userModel)
+        {
+            var newUser = new User()
+            {
+                Email = userModel.Email,
+                FirstName = userModel.FirstName,
+                LastName = userModel.LastName,
+                Password = userModel.Password,
+                Photo = userModel.Photo,
+                Description = userModel.Description
+            };
+
+            _dataContext.Users.Add(newUser);
+            _dataContext.SaveChanges();
+            userModel.Id = newUser.Id;
+            return userModel;
+        }
+
+        public UserModel Update(UserModel userModel)
+        {
+            var userToUpdate = _dataContext.Users.FirstOrDefault(user => user.Id == userModel.Id);
+
+            if (userToUpdate == null)
+            {
+                return null;
+            }
+
+            userToUpdate.Email = userModel.Email;
+            userToUpdate.FirstName = userModel.FirstName;
+            userToUpdate.LastName = userModel.LastName;
+            userToUpdate.Password = userModel.Password;
+            userToUpdate.Description = userModel.Description;
+
+            _dataContext.Users.Update(userToUpdate);
+            _dataContext.SaveChanges();
+            return userModel;
+        }
+
+        public void Delete(User user)
+        {
+            _dataContext.Users.Remove(user);
+            _dataContext.SaveChanges();
+        }
+
         public (string login, string password) GetUserLoginPassFromBasicAuth(HttpRequest request)
         {
             string userName = string.Empty;
@@ -25,28 +81,20 @@ namespace OnlineBlog.Server.Services
         public (ClaimsIdentity identity, Guid id)? GetIdentity(string email, string password)
         {
             User currentUser = GetUserByLogin(email);
-            
             if (currentUser == null || !VerifyHashedPassword(currentUser.Password, password))
             {
                 return null;
             }
-
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, currentUser.Email)                    
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, currentUser.Email)
                 };
-
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(
-                claims, 
-                "Token", 
+                claims,
+                "Token",
                 ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
-            return (claimsIdentity, currentUser.Id);           
-        }
-
-        private User GetUserByLogin(string email)
-        {
-            throw new NotImplementedException();
+            return (claimsIdentity, currentUser.Id);
         }
 
         private bool VerifyHashedPassword(string password1, string password2)

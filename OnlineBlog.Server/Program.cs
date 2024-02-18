@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using OnlineBlog.Server.Data;
 using OnlineBlog.Server.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +28,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
         };
     });
+
+string connection = builder.Configuration.GetConnectionString("mssqllocaldb");
+builder.Services.AddDbContext<AppDataContext>(options => options.UseSqlServer(connection));
+
 builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
