@@ -1,5 +1,8 @@
 ﻿namespace OnlineBlog.Server.Models
 {
+    /// <summary>
+    /// Jwt токен пользователя
+    /// </summary>
     public class AuthToken
     {
         public int Minutes { get; private set; }

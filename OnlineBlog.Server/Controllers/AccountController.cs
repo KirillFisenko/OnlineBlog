@@ -9,6 +9,9 @@ using System.Security.Claims;
 
 namespace OnlineBlog.Server.Controllers
 {
+    /// <summary>
+    /// Контроллер аккаунтов (создать/удалить/изменить/обновить пользователя)
+    /// </summary>
     [ApiController]
     [Authorize]
     [Route("[controller]")]    
@@ -20,6 +23,9 @@ namespace OnlineBlog.Server.Controllers
             _usersService = new UsersService(dataContext);
         }
 
+        /// <summary>
+        /// Получить пользователя
+        /// </summary>
         [HttpGet]        
         public IActionResult Get()
         {
@@ -41,13 +47,19 @@ namespace OnlineBlog.Server.Controllers
             });
         }
 
+        /// <summary>
+        /// Создать пользователя
+        /// </summary>
         [HttpPost]
         public ActionResult<UserModel> Create([FromBody] UserModel user)
         {
-            var newuUser = _usersService.Create(user);
-            return Ok(newuUser);
+            var newUser = _usersService.Create(user);
+            return Ok(newUser);
         }
 
+        /// <summary>
+        /// Обновить пользователя
+        /// </summary>
         [HttpPatch]
         public ActionResult<UserModel> Update(UserModel user)
         {
@@ -61,6 +73,9 @@ namespace OnlineBlog.Server.Controllers
             return Ok(user);
         }
 
+        /// <summary>
+        /// Удалить пользователя
+        /// </summary>
         [HttpDelete]
         public IActionResult Delete()
         {
@@ -70,6 +85,9 @@ namespace OnlineBlog.Server.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Получить jwt токен
+        /// </summary>
         [HttpPost("token")]
         [AllowAnonymous] // авторизация не нужна
         public object GetToken()

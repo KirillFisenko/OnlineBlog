@@ -3,6 +3,9 @@ using System.Text;
 
 namespace OnlineBlog.Server.Models
 {
+    /// <summary>
+    /// настройки Jwt токена
+    /// </summary>
     public class AuthOptions
     {
         public const string ISSUER = "MyAuthServer"; // издатель токена

@@ -7,6 +7,7 @@ using OnlineBlog.Server.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Добавление jwt токена
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -29,6 +30,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// Подключение к БД
 string connection = builder.Configuration.GetConnectionString("mssqllocaldb");
 builder.Services.AddDbContext<AppDataContext>(options => options.UseSqlServer(connection));
 

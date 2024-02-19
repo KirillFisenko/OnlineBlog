@@ -14,11 +14,17 @@ namespace OnlineBlog.Server.Services
         }
 
         #region CRUD
+        /// <summary>
+        /// Получить пользователя по Email из БД
+        /// </summary>
         public User GetUserByLogin(string email)
         {
             return _dataContext.Users.FirstOrDefault(user => user.Email == email);
         }
 
+        /// <summary>
+        /// Создать пользователя в БД
+        /// </summary>
         public UserModel Create(UserModel userModel)
         {
             var newUser = new User()
@@ -37,6 +43,9 @@ namespace OnlineBlog.Server.Services
             return userModel;
         }
 
+        /// <summary>
+        /// Обновить пользователя в БД
+        /// </summary>
         public UserModel Update(UserModel userModel)
         {
             var userToUpdate = _dataContext.Users.FirstOrDefault(user => user.Id == userModel.Id);
@@ -57,6 +66,9 @@ namespace OnlineBlog.Server.Services
             return userModel;
         }
 
+        /// <summary>
+        /// Удалить пользователя из БД
+        /// </summary>
         public void Delete(User user)
         {
             _dataContext.Users.Remove(user);
