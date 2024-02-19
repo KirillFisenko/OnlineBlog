@@ -17,7 +17,7 @@ namespace OnlineBlog.Server.Services
         /// <summary>
         /// Получить пользователя по Email из БД
         /// </summary>
-        public User GetUserByLogin(string email)
+        public User GetUserByEmail(string email)
         {
             return _dataContext.Users.FirstOrDefault(user => user.Email == email);
         }
@@ -60,6 +60,7 @@ namespace OnlineBlog.Server.Services
             userToUpdate.LastName = userModel.LastName;
             userToUpdate.Password = userModel.Password;
             userToUpdate.Description = userModel.Description;
+            userToUpdate.Photo = userModel.Photo;
 
             _dataContext.Users.Update(userToUpdate);
             _dataContext.SaveChanges();
@@ -79,7 +80,7 @@ namespace OnlineBlog.Server.Services
         #region Identity
         public (string login, string password) GetUserLoginPassFromBasicAuth(HttpRequest request)
         {
-            string userName ="";
+            string userName = "";
             string userPassword = "";
             string authHeader = request.Headers["Authorization"].ToString();
             if (authHeader != null && authHeader.StartsWith("Basic"))
@@ -91,11 +92,11 @@ namespace OnlineBlog.Server.Services
                 userPassword = namePasswordArray[1];
             }
             return (userName, userPassword);
-        }       
-        
+        }
+
         public (ClaimsIdentity identity, Guid id)? GetIdentity(string email, string password)
         {
-            User currentUser = GetUserByLogin(email);
+            User currentUser = GetUserByEmail(email);
             if (currentUser == null || !VerifyHashedPassword(currentUser.Password, password))
             {
                 return null;
