@@ -1,7 +1,7 @@
 ﻿namespace OnlineBlog.Server.Models
 {
     /// <summary>
-    /// Jwt токен пользователя
+    /// Jwt токен авторизации пользователя
     /// </summary>
     public class AuthToken
     {

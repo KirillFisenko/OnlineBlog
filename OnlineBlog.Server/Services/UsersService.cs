@@ -1,27 +1,27 @@
 ﻿using OnlineBlog.Server.Data;
+using OnlineBlog.Server.Helpers;
 using OnlineBlog.Server.Models;
 using System.Security.Claims;
 using System.Text;
 
 namespace OnlineBlog.Server.Services
 {
+    /// <summary>
+    /// Сервис пользователей
+    /// </summary>
     public class UsersService
     {
         private AppDataContext _dataContext;
-        public UsersService(AppDataContext dataContext)
+        private NoSQLDataService _noSQLDataService;
+        private Mapping _mapping;
+        public UsersService(AppDataContext dataContext, NoSQLDataService noSQLDataService, Mapping mapping)
         {
             _dataContext = dataContext;
+            _noSQLDataService = noSQLDataService;
+            _mapping = mapping;
         }
 
         #region CRUD
-        /// <summary>
-        /// Получить пользователя по Email из БД
-        /// </summary>
-        public User GetUserByEmail(string email)
-        {
-            return _dataContext.Users.FirstOrDefault(user => user.Email == email);
-        }
-
         /// <summary>
         /// Создать пользователя в БД
         /// </summary>
@@ -36,11 +36,18 @@ namespace OnlineBlog.Server.Services
                 Photo = userModel.Photo,
                 Description = userModel.Description
             };
-
             _dataContext.Users.Add(newUser);
             _dataContext.SaveChanges();
             userModel.Id = newUser.Id;
             return userModel;
+        }
+
+        /// <summary>
+        /// Получить пользователя по Email из БД
+        /// </summary>
+        public User GetUserByEmail(string email)
+        {
+            return _dataContext.Users.FirstOrDefault(user => user.Email == email);
         }
 
         /// <summary>
@@ -49,12 +56,10 @@ namespace OnlineBlog.Server.Services
         public UserModel Update(UserModel userModel)
         {
             var userToUpdate = _dataContext.Users.FirstOrDefault(user => user.Id == userModel.Id);
-
             if (userToUpdate == null)
             {
                 return null;
             }
-
             userToUpdate.Email = userModel.Email;
             userToUpdate.FirstName = userModel.FirstName;
             userToUpdate.LastName = userModel.LastName;
@@ -76,6 +81,34 @@ namespace OnlineBlog.Server.Services
             _dataContext.SaveChanges();
         }
         #endregion
+
+        /// <summary>
+        /// Найти всех пользователей по имени
+        /// </summary>
+        public List<UserModel> GetUsersByName(string name)
+        {
+            return _dataContext.Users
+                .Where(n => n.FirstName.ToLower().Contains(name.ToLower())
+                || n.LastName.ToLower().Contains(name.ToLower()))
+                .Select(_mapping.ToModel)
+                .ToList();
+        }
+
+
+
+        /// <summary>
+        /// Подписаться на пользователя
+        /// </summary>
+        /// <param name="from">
+        /// Id пользователя, который подписывается
+        /// </param>
+        /// <param name="to">
+        /// Id пользователя, на которого подписываются
+        /// </param>
+        public void Subscribe(Guid from, Guid to)
+        {
+            _noSQLDataService.SetUserSubs(from, to);
+        }
 
         #region Identity
         public (string login, string password) GetUserLoginPassFromBasicAuth(HttpRequest request)

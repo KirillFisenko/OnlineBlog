@@ -1,9 +1,7 @@
-﻿using OnlineBlog.Server.Data;
-
-namespace OnlineBlog.Server.Models
+﻿namespace OnlineBlog.Server.Models
 {
     /// <summary>
-    /// Модель пользователя для представления
+    /// Посты пользователя
     /// </summary> 
     public class UserModel
     {
@@ -38,7 +36,7 @@ namespace OnlineBlog.Server.Models
         public string? Description { get; set; }
 
         /// <summary>
-        /// Фото пользователя
+        /// Фото (аватар) пользователя
         /// </summary>
         public byte[]? Photo { get; set; }
     }

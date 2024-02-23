@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OnlineBlog.Server.Data;
+using OnlineBlog.Server.Helpers;
 using OnlineBlog.Server.Models;
 using OnlineBlog.Server.Services;
 
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddTransient<UsersService>();
+builder.Services.AddTransient<NoSQLDataService>();
+builder.Services.AddTransient<Mapping>();
 
 // Добавление jwt токена
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

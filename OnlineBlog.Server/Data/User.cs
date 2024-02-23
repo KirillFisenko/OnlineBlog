@@ -1,7 +1,7 @@
 ﻿namespace OnlineBlog.Server.Data
 {
     /// <summary>
-    /// Модель пользователя для БД
+    /// Пользователь
     /// </summary> 
     public class User
     {
@@ -36,7 +36,7 @@
         public string? Description { get; set; }
 
         /// <summary>
-        /// Фото пользователя
+        /// Фото (аватар) пользователя
         /// </summary>
         public byte[]? Photo { get; set; }
     }

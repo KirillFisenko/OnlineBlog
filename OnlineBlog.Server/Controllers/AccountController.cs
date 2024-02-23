@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using OnlineBlog.Server.Data;
 using OnlineBlog.Server.Models;
 using OnlineBlog.Server.Services;
 using System.IdentityModel.Tokens.Jwt;
@@ -24,13 +25,12 @@ namespace OnlineBlog.Server.Controllers
 
         #region CRUD
         /// <summary>
-        /// Получить пользователя
+        /// Получить пользователя, посмотреть профиль
         /// </summary>
         [HttpGet]
         public IActionResult Get()
         {
-            var currentUserEmail = HttpContext.User.Identity.Name;
-            var currentUser = _usersService.GetUserByEmail(currentUserEmail);
+            var currentUser = GetCurrentUser();
             return currentUser == null
                 ? NotFound()
                 : Ok(new UserModel()
@@ -45,7 +45,7 @@ namespace OnlineBlog.Server.Controllers
         }
 
         /// <summary>
-        /// Создать пользователя
+        /// Создать пользователя, регистрация
         /// </summary>
         [HttpPost]
         public ActionResult<UserModel> Create(UserModel user)
@@ -60,8 +60,7 @@ namespace OnlineBlog.Server.Controllers
         [HttpPatch]
         public ActionResult<UserModel> Update(UserModel user)
         {
-            var currentUserEmail = HttpContext.User.Identity.Name;
-            var currentUser = _usersService.GetUserByEmail(currentUserEmail);
+            var currentUser = GetCurrentUser();
             if (currentUser == null)
             {
                 return NotFound();
@@ -76,8 +75,7 @@ namespace OnlineBlog.Server.Controllers
         [HttpDelete]
         public IActionResult Delete()
         {
-            var currentUserEmail = HttpContext.User.Identity.Name;
-            var currentUser = _usersService.GetUserByEmail(currentUserEmail);
+            var currentUser = GetCurrentUser();
             if (currentUser == null)
             {
                 return NotFound();
@@ -87,9 +85,19 @@ namespace OnlineBlog.Server.Controllers
         }
         #endregion
 
+        /// <summary>
+        /// Найти текущего пользователя
+        /// </summary>
+        public User GetCurrentUser()
+        {
+            var currentUserEmail = HttpContext.User.Identity.Name;
+            var currentUser = _usersService.GetUserByEmail(currentUserEmail);
+            return currentUser;
+        }
+
         #region Token
         /// <summary>
-        /// Получить jwt токен
+        /// Получить jwt токен авторизации
         /// </summary>
         [HttpPost("token")]
         [AllowAnonymous] // авторизация не нужна
