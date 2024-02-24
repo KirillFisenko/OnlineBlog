@@ -1,4 +1,4 @@
-﻿namespace OnlineBlog.Server.Models
+﻿namespace OnlineBlog.Server.Token
 {
     /// <summary>
     /// Jwt токен авторизации пользователя

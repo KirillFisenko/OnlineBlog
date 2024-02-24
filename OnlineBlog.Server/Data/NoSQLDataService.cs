@@ -10,7 +10,7 @@ namespace OnlineBlog.Server.Data
         /// <summary>
         /// Путь до БД
         /// </summary>
-        private readonly string DBPath = "";
+        private readonly string DBPath = "OnlineBlog_NoSQLDB.db";
 
         /// <summary>
         /// Коллекция для подписок

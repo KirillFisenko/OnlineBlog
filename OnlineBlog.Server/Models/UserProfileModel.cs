@@ -1,9 +1,9 @@
 ﻿namespace OnlineBlog.Server.Models
 {
     /// <summary>
-    /// Пользователь
-    /// </summary> 
-    public class UserModel
+    /// Отображение профиля
+    /// </summary>
+    public class UserProfileModel
     {
         /// <summary>
         /// id пользователя
@@ -26,11 +26,6 @@
         public string Email { get; set; }
 
         /// <summary>
-        /// Пароль пользователя
-        /// </summary>
-        public string Password { get; set; }
-
-        /// <summary>
         /// Описание пользователя
         /// </summary>
         public string? Description { get; set; }
@@ -39,5 +34,10 @@
         /// Фото (аватар) пользователя
         /// </summary>
         public byte[]? Photo { get; set; }
+
+        /// <summary>
+        /// Количество подписок пользователя
+        /// </summary>
+        public int? SubsCount { get; set; }
     }
 }

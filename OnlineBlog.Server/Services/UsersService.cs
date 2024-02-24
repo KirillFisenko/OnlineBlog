@@ -1,8 +1,6 @@
 ﻿using OnlineBlog.Server.Data;
 using OnlineBlog.Server.Helpers;
 using OnlineBlog.Server.Models;
-using System.Security.Claims;
-using System.Text;
 
 namespace OnlineBlog.Server.Services
 {
@@ -51,6 +49,26 @@ namespace OnlineBlog.Server.Services
         }
 
         /// <summary>
+        /// Получить пользователя по Id из БД
+        /// </summary>
+        public UserProfileModel GetUserProfileById(Guid userId)
+        {
+            return _mapping.ToProfile(_dataContext.Users?.FirstOrDefault(user => user.Id == userId));
+        }
+
+        /// <summary>
+        /// Найти всех пользователей по имени/фамилии
+        /// </summary>
+        public List<UserShortModel> GetUsersByName(string name)
+        {
+            return _dataContext.Users
+                .Where(n => n.FirstName.ToLower().Contains(name.ToLower())
+                || n.LastName.ToLower().Contains(name.ToLower()))
+                .Select(_mapping.ToShortModel)
+                .ToList();
+        }
+
+        /// <summary>
         /// Обновить пользователя в БД
         /// </summary>
         public UserModel Update(UserModel userModel)
@@ -80,77 +98,6 @@ namespace OnlineBlog.Server.Services
             _dataContext.Users.Remove(user);
             _dataContext.SaveChanges();
         }
-        #endregion
-
-        /// <summary>
-        /// Найти всех пользователей по имени
-        /// </summary>
-        public List<UserModel> GetUsersByName(string name)
-        {
-            return _dataContext.Users
-                .Where(n => n.FirstName.ToLower().Contains(name.ToLower())
-                || n.LastName.ToLower().Contains(name.ToLower()))
-                .Select(_mapping.ToModel)
-                .ToList();
-        }
-
-
-
-        /// <summary>
-        /// Подписаться на пользователя
-        /// </summary>
-        /// <param name="from">
-        /// Id пользователя, который подписывается
-        /// </param>
-        /// <param name="to">
-        /// Id пользователя, на которого подписываются
-        /// </param>
-        public void Subscribe(Guid from, Guid to)
-        {
-            _noSQLDataService.SetUserSubs(from, to);
-        }
-
-        #region Identity
-        public (string login, string password) GetUserLoginPassFromBasicAuth(HttpRequest request)
-        {
-            string userName = "";
-            string userPassword = "";
-            string authHeader = request.Headers["Authorization"].ToString();
-            if (authHeader != null && authHeader.StartsWith("Basic"))
-            {
-                string encodedUserNamePassword = authHeader.Replace("Basic ", "");
-                Encoding encoding = Encoding.GetEncoding("iso-8859-1");
-                string[] namePasswordArray = encoding.GetString(Convert.FromBase64String(encodedUserNamePassword)).Split(':');
-                userName = namePasswordArray[0];
-                userPassword = namePasswordArray[1];
-            }
-            return (userName, userPassword);
-        }
-
-        public (ClaimsIdentity identity, Guid id)? GetIdentity(string email, string password)
-        {
-            User currentUser = GetUserByEmail(email);
-            if (currentUser == null || !VerifyHashedPassword(currentUser.Password, password))
-            {
-                return null;
-            }
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, currentUser.Email),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, "User")
-                };
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(
-                claims,
-                "Token",
-                ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
-            return (claimsIdentity, currentUser.Id);
-        }
-
-        private bool VerifyHashedPassword(string password1, string password2)
-        {
-            return password1 == password2;
-        }
-        #endregion
+        #endregion        
     }
 }

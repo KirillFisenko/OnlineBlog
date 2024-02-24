@@ -6,7 +6,7 @@ using OnlineBlog.Server.Services;
 namespace OnlineBlog.Server.Controllers
 {
     /// <summary>
-    /// Контроллер пользователей (найти/подписаться)
+    /// Контроллер пользователей
     /// </summary>
     [ApiController]
     [Authorize] // доступ только авторизованным
@@ -14,25 +14,36 @@ namespace OnlineBlog.Server.Controllers
     public class UsersController : Controller
     {
         private UsersService _usersService;
-        public UsersController(UsersService usersService)
+        private SubsService _subsService;
+        public UsersController(UsersService usersService, SubsService subsService)
         {
             _usersService = usersService;
+            _subsService = subsService;
         }
 
         /// <summary>
-        /// Найти всех пользователей по имени
+        /// Получить профили по имени
         /// </summary>
-        [HttpGet("{name}")]
+        [HttpGet("all/{name}")]
         public IActionResult GetUsersByName(string name)
         {
             return Ok(_usersService.GetUsersByName(name));
         }
 
         /// <summary>
+        /// Посмотреть профиль пользователя
+        /// </summary>
+        [HttpGet("{userId}")]
+        public IActionResult GetUserProfileById(Guid userId)
+        {
+            return Ok(_usersService.GetUserProfileById(userId));
+        }
+
+        /// <summary>
         /// Подписаться на пользователя
         /// </summary>
         [HttpPost("subs/{userId}")]
-        public IActionResult SubscribeUser(Guid userId)
+        public IActionResult Subscribe(Guid userId)
         {
             var currentUser = GetCurrentUser();
             if (currentUser == null)
@@ -41,7 +52,7 @@ namespace OnlineBlog.Server.Controllers
             }
             if (currentUser.Id != userId)
             {
-                _usersService.Subscribe(currentUser.Id, userId);
+                _subsService.Subscribe(currentUser.Id, userId);
             }
             else
             {
@@ -53,6 +64,7 @@ namespace OnlineBlog.Server.Controllers
         /// <summary>
         /// Найти текущего пользователя
         /// </summary>
+        [HttpGet("GetCurrentUser")]
         public User GetCurrentUser()
         {
             var currentUserEmail = HttpContext.User.Identity.Name;

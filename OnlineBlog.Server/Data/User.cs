@@ -6,7 +6,7 @@
     public class User
     {
         /// <summary>
-        /// id пользователя
+        /// Id пользователя
         /// </summary>
         public Guid Id { get; set; }
 

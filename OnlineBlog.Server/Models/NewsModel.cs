@@ -13,17 +13,17 @@
         /// <summary>
         /// Текст поста
         /// </summary>
-        public string Text { get; set; }
+        public string? Text { get; set; }
 
         /// <summary>
         /// Изображение поста
         /// </summary>
-        public byte[] Image { get; set; }
+        public byte[]? Image { get; set; }
 
         /// <summary>
         /// Количество лайков у поста
         /// </summary>
-        public int LikesCount { get; set; }
+        public int? LikesCount { get; set; }
 
         /// <summary>
         /// Дата публикации поста

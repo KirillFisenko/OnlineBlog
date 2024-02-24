@@ -12,7 +12,7 @@ using OnlineBlog.Server.Data;
 namespace OnlineBlog.Server.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20240218160526_Init")]
+    [Migration("20240224110826_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -24,6 +24,32 @@ namespace OnlineBlog.Server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("OnlineBlog.Server.Data.News", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int?>("LikesCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PostDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("News");
+                });
 
             modelBuilder.Entity("OnlineBlog.Server.Data.User", b =>
                 {

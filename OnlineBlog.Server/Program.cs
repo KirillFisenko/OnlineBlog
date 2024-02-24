@@ -3,13 +3,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OnlineBlog.Server.Data;
 using OnlineBlog.Server.Helpers;
-using OnlineBlog.Server.Models;
 using OnlineBlog.Server.Services;
+using OnlineBlog.Server.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddTransient<UsersService>();
+builder.Services.AddTransient<NewsService>();
+builder.Services.AddTransient<LikesService>();
+builder.Services.AddTransient<SubsService>();
+builder.Services.AddTransient<IdentityService>();
 builder.Services.AddTransient<NoSQLDataService>();
 builder.Services.AddTransient<Mapping>();
 

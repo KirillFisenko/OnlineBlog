@@ -28,7 +28,7 @@
         /// <summary>
         /// Количество лайков у поста
         /// </summary>
-        public int LikesCount { get; set; }
+        public int? LikesCount { get; set; }
 
         /// <summary>
         /// Дата публикации поста

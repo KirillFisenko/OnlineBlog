@@ -34,7 +34,7 @@ namespace OnlineBlog.Server.Migrations
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("LikesCount")
+                    b.Property<int?>("LikesCount")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PostDate")

@@ -7,7 +7,7 @@ using OnlineBlog.Server.Services;
 namespace OnlineBlog.Server.Controllers
 {
     /// <summary>
-    /// Контроллер публикаций (создать/удалить/изменить/обновить публикацию)
+    /// Контроллер постов
     /// </summary>
     [ApiController]
     [Authorize] // доступ только авторизованным
@@ -25,32 +25,7 @@ namespace OnlineBlog.Server.Controllers
 
         #region CRUD
         /// <summary>
-        /// Получить публикации конкретного пользователя
-        /// </summary>
-        [HttpGet("{authorId}")]
-        public IActionResult GetByAuthor(Guid authorId)
-        {
-            var news = _newsService.GetByAuthor(authorId);
-            return Ok(news);
-        }
-
-        /// <summary>
-        /// Получить публикации на основе подписок
-        /// </summary>
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var currentUser = GetCurrentUser();
-            if (currentUser == null)
-            {
-                return NotFound();
-            }
-            var news = _newsService.GetNewsForCurrentUser(currentUser.Id);
-            return Ok(news);
-        }
-
-        /// <summary>
-        /// Создать публикацию
+        /// Создать пост
         /// </summary>
         [HttpPost]
         public IActionResult Create(NewsModel newsModel)
@@ -65,7 +40,32 @@ namespace OnlineBlog.Server.Controllers
         }
 
         /// <summary>
-        /// Обновить публикацию
+        /// Получить посты конкретного пользователя
+        /// </summary>
+        [HttpGet("{authorId}")]
+        public IActionResult GetByAuthor(Guid authorId)
+        {
+            var news = _newsService.GetByAuthor(authorId);
+            return Ok(news);
+        }
+
+        /// <summary>
+        /// Получить посты на основе подписок
+        /// </summary>
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var currentUser = GetCurrentUser();
+            if (currentUser == null)
+            {
+                return NotFound();
+            }
+            var news = _newsService.GetNewsForCurrentUser(currentUser.Id);
+            return Ok(news);
+        }
+
+        /// <summary>
+        /// Обновить пост
         /// </summary>
         [HttpPatch]
         public IActionResult Update(NewsModel newsModel)
@@ -80,7 +80,7 @@ namespace OnlineBlog.Server.Controllers
         }
 
         /// <summary>
-        /// Удалить публикацию
+        /// Удалить пост
         /// </summary>
         [HttpDelete("{newsId}")]
         public IActionResult Delete(Guid newsId)
@@ -98,26 +98,12 @@ namespace OnlineBlog.Server.Controllers
         /// <summary>
         /// Найти текущего пользователя
         /// </summary>
+        [HttpGet("GetCurrentUser")]
         public User GetCurrentUser()
         {
             var currentUserEmail = HttpContext.User.Identity.Name;
             var currentUser = _usersService.GetUserByEmail(currentUserEmail);
             return currentUser;
-        }
-
-        /// <summary>
-        /// Поставить лайк
-        /// </summary>
-        [HttpPost("like{newsId}")]
-        public IActionResult SetLike(Guid newsId)
-        {
-            var currentUser = GetCurrentUser();
-            if (currentUser == null)
-            {
-                return NotFound();
-            }
-            _newsService.SetLike(newsId, currentUser.Id);
-            return Ok();
         }
     }
 }

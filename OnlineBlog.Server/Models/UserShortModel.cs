@@ -1,9 +1,9 @@
 ﻿namespace OnlineBlog.Server.Models
 {
     /// <summary>
-    /// Пользователь
-    /// </summary> 
-    public class UserModel
+    /// Укороченная представление пользователя
+    /// </summary>
+    public class UserShortModel
     {
         /// <summary>
         /// id пользователя
@@ -19,16 +19,6 @@
         /// Фамилия пользователя
         /// </summary>
         public string LastName { get; set; }
-
-        /// <summary>
-        /// Email пользователя
-        /// </summary>
-        public string Email { get; set; }
-
-        /// <summary>
-        /// Пароль пользователя
-        /// </summary>
-        public string Password { get; set; }
 
         /// <summary>
         /// Описание пользователя

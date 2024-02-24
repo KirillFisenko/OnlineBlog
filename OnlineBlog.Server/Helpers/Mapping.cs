@@ -3,6 +3,9 @@ using OnlineBlog.Server.Models;
 
 namespace OnlineBlog.Server.Helpers
 {
+    /// <summary>
+    /// Маппинг моделей
+    /// </summary>
     public class Mapping
     {
         private NoSQLDataService _noSQLDataService;
@@ -12,11 +15,11 @@ namespace OnlineBlog.Server.Helpers
         }
 
         /// <summary>
-        /// Маппинг модели постов
+        /// Маппинг модели поста
         /// </summary>
         public NewsModel ToModel(News news)
         {
-            var likes = _noSQLDataService.GetNewsLike(news.Id).Users.Count();
+            var likes = _noSQLDataService.GetNewsLike(news.Id)?.Users?.Count() ?? 0;
             return new NewsModel()
             {
                 Id = news.Id,
@@ -37,8 +40,40 @@ namespace OnlineBlog.Server.Helpers
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Password = user.Password,
                 Description = user.Description,
+                Photo = user.Photo
+            };
+        }
+
+        /// <summary>
+        /// Маппинг модели профиля
+        /// </summary>
+        public UserProfileModel ToProfile(User user)
+        {
+            var userSubs = _noSQLDataService.GetUserSubs(user.Id)?.Users?.Count() ?? 0;
+            return new UserProfileModel()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Description = user.Description,
+                Photo = user.Photo,
+                SubsCount = userSubs
+            };
+        }
+
+        /// <summary>
+        /// Маппинг модели сокращенного представления пользователя
+        /// </summary>
+        public UserShortModel ToShortModel(User user)
+        {
+            return new UserShortModel()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Description = new string(user.Description?.Take(50).ToArray()),
                 Photo = user.Photo
             };
         }

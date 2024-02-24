@@ -5,7 +5,7 @@ using OnlineBlog.Server.Models;
 namespace OnlineBlog.Server.Services
 {
     /// <summary>
-    /// Сервис публикаций
+    /// Сервис постов
     /// </summary>
     public class NewsService
     {
@@ -35,11 +35,13 @@ namespace OnlineBlog.Server.Services
             {
                 AuthorId = authorId,
                 Image = newsModel.Image,
-                Text = newsModel.Text
+                Text = newsModel.Text,
+                PostDate = DateTime.Now
             };
             _dataContext.News.Add(newNews);
             _dataContext.SaveChanges();
             newsModel.Id = newNews.Id;
+            newsModel = _mapping.ToModel(newNews);
             return newsModel;
         }
 
@@ -50,6 +52,7 @@ namespace OnlineBlog.Server.Services
         {
             var news = _dataContext.News
                 .Where(n => n.AuthorId == authorId)
+                .OrderBy(n => n.PostDate)
                 .Reverse()
                 .Select(_mapping.ToModel)
                 .ToList();
@@ -63,10 +66,13 @@ namespace OnlineBlog.Server.Services
         {
             var subs = _noSQLDataService.GetUserSubs(authorId);
             var allNews = new List<NewsModel>();
-            foreach (var sub in subs.Users)
+            if (subs != null)
             {
-                var allNewsByAuthor = _dataContext.News.Where(n => n.AuthorId == sub);
-                allNews.AddRange(allNewsByAuthor.Select(_mapping.ToModel));
+                foreach (var sub in subs.Users)
+                {
+                    var allNewsByAuthor = _dataContext.News.Where(n => n.AuthorId == sub);
+                    allNews.AddRange(allNewsByAuthor.Select(_mapping.ToModel));
+                }
             }
             allNews.Sort(new NewsComparer());
             return allNews;
@@ -92,7 +98,7 @@ namespace OnlineBlog.Server.Services
             newsToUpdate.Text = newsModel.Text;
             _dataContext.News.Update(newsToUpdate);
             _dataContext.SaveChanges();
-            newsModel.Id = newsToUpdate.Id;
+            newsModel = _mapping.ToModel(newsToUpdate);
             return newsModel;
         }
 
@@ -115,20 +121,6 @@ namespace OnlineBlog.Server.Services
             _dataContext.News.Remove(newsToDelete);
             _dataContext.SaveChanges();
         }
-        #endregion               
-
-        /// <summary>
-        /// Поставить лайк в БД
-        /// </summary>
-        /// <param name="newsId">
-        /// Id поста, которому ставят лайк
-        /// </param>
-        /// <param name="userId">
-        /// Id пользователя, который ставит лайк
-        /// </param>
-        public void SetLike(Guid newsId, Guid userId)
-        {
-            _noSQLDataService.SetNewsLike(userId, newsId);
-        }
+        #endregion        
     }
 }
