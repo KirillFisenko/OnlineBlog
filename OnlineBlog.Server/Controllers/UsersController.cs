@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineBlog.Server.Data;
+using OnlineBlog.Server.Models;
 using OnlineBlog.Server.Services;
 
 namespace OnlineBlog.Server.Controllers
@@ -14,11 +14,9 @@ namespace OnlineBlog.Server.Controllers
     public class UsersController : Controller
     {
         private UsersService _usersService;
-        private SubsService _subsService;
-        public UsersController(UsersService usersService, SubsService subsService)
+        public UsersController(UsersService usersService)
         {
             _usersService = usersService;
-            _subsService = subsService;
         }
 
         /// <summary>
@@ -27,7 +25,8 @@ namespace OnlineBlog.Server.Controllers
         [HttpGet("all/{name}")]
         public IActionResult GetUsersByName(string name)
         {
-            return Ok(_usersService.GetUsersByName(name));
+            var user = _usersService.GetUsersByName(name);
+            return user == null ? NotFound() : Ok(user);
         }
 
         /// <summary>
@@ -36,40 +35,19 @@ namespace OnlineBlog.Server.Controllers
         [HttpGet("{userId}")]
         public IActionResult GetUserProfileById(Guid userId)
         {
-            return Ok(_usersService.GetUserProfileById(userId));
+            var user = _usersService.GetUserProfileById(userId);
+            return user == null ? NotFound() : Ok(user);
         }
 
         /// <summary>
-        /// Подписаться на пользователя
+        /// Создать массово пользователей
         /// </summary>
-        [HttpPost("subs/{userId}")]
-        public IActionResult Subscribe(Guid userId)
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult CreateUsers(List<UserModel> users)
         {
-            var currentUser = GetCurrentUser();
-            if (currentUser == null)
-            {
-                return NotFound();
-            }
-            if (currentUser.Id != userId)
-            {
-                _subsService.Subscribe(currentUser.Id, userId);
-            }
-            else
-            {
-                return BadRequest();
-            }
-            return Ok();
-        }
-
-        /// <summary>
-        /// Найти текущего пользователя
-        /// </summary>
-        [HttpGet("GetCurrentUser")]
-        public User GetCurrentUser()
-        {
-            var currentUserEmail = HttpContext.User.Identity.Name;
-            var currentUser = _usersService.GetUserByEmail(currentUserEmail);
-            return currentUser;
+            var newUsers = _usersService.Create(users);
+            return Ok(newUsers);
         }
     }
 }

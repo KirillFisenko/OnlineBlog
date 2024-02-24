@@ -8,11 +8,18 @@
         /// <summary>
         /// Id пользователя
         /// </summary>
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Список id, на которых подписан пользователь
         /// </summary>
-        public List<Guid>? Users { get; set; }
+        public List<UserSub>? Users { get; set; }
+    }
+
+    public class UserSub
+    {
+        public Guid Id { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

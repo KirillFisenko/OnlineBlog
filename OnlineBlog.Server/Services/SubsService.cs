@@ -2,6 +2,9 @@
 
 namespace OnlineBlog.Server.Services
 {
+    /// <summary>
+    /// Сервис подписок
+    /// </summary>
     public class SubsService
     {
         private NoSQLDataService _noSQLDataService;

@@ -70,7 +70,7 @@ namespace OnlineBlog.Server.Services
             {
                 foreach (var sub in subs.Users)
                 {
-                    var allNewsByAuthor = _dataContext.News.Where(n => n.AuthorId == sub);
+                    var allNewsByAuthor = _dataContext.News.Where(n => n.AuthorId == sub.Id);
                     allNews.AddRange(allNewsByAuthor.Select(_mapping.ToModel));
                 }
             }
@@ -121,6 +121,32 @@ namespace OnlineBlog.Server.Services
             _dataContext.News.Remove(newsToDelete);
             _dataContext.SaveChanges();
         }
-        #endregion        
+        #endregion
+
+        /// <summary>
+        /// Создать посты в БД
+        /// </summary>
+        /// <param name="newsModel">
+        /// Посты
+        /// </param>
+        /// <param name="authorId">
+        /// Id пользователя
+        /// </param>
+        public List<NewsModel> Create(List<NewsModel> newsModels, Guid authorId)
+        {
+            foreach (var news in newsModels)
+            {
+                var newNews = new News()
+                {
+                    AuthorId = authorId,
+                    Image = news.Image,
+                    Text = news.Text,
+                    PostDate = DateTime.Now
+                };
+                _dataContext.News.Add(newNews);
+            }
+            _dataContext.SaveChanges();
+            return newsModels;
+        }
     }
 }

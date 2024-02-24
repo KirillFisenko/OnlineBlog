@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineBlog.Server.Data;
 using OnlineBlog.Server.Models;
 using OnlineBlog.Server.Services;
 
@@ -30,7 +29,7 @@ namespace OnlineBlog.Server.Controllers
         [HttpPost]
         public IActionResult Create(NewsModel newsModel)
         {
-            var currentUser = GetCurrentUser();
+            var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)
             {
                 return NotFound();
@@ -46,7 +45,7 @@ namespace OnlineBlog.Server.Controllers
         public IActionResult GetByAuthor(Guid authorId)
         {
             var news = _newsService.GetByAuthor(authorId);
-            return Ok(news);
+            return news == null ? NotFound() : Ok(news);
         }
 
         /// <summary>
@@ -55,13 +54,13 @@ namespace OnlineBlog.Server.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var currentUser = GetCurrentUser();
+            var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)
             {
                 return NotFound();
             }
             var news = _newsService.GetNewsForCurrentUser(currentUser.Id);
-            return Ok(news);
+            return news == null ? NotFound() : Ok(news);
         }
 
         /// <summary>
@@ -70,13 +69,13 @@ namespace OnlineBlog.Server.Controllers
         [HttpPatch]
         public IActionResult Update(NewsModel newsModel)
         {
-            var currentUser = GetCurrentUser();
+            var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)
             {
                 return NotFound();
             }
             var newsModelNew = _newsService.Update(newsModel, currentUser.Id);
-            return Ok(newsModelNew);
+            return newsModelNew == null ? NotFound() : Ok(newsModelNew);
         }
 
         /// <summary>
@@ -85,7 +84,7 @@ namespace OnlineBlog.Server.Controllers
         [HttpDelete("{newsId}")]
         public IActionResult Delete(Guid newsId)
         {
-            var currentUser = GetCurrentUser();
+            var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)
             {
                 return NotFound();
@@ -96,14 +95,14 @@ namespace OnlineBlog.Server.Controllers
         #endregion
 
         /// <summary>
-        /// Найти текущего пользователя
+        /// Создать массово посты, временный
         /// </summary>
-        [HttpGet("GetCurrentUser")]
-        public User GetCurrentUser()
+        [HttpPost("all")]
+        public IActionResult Create(List<NewsModel> newsModels)
         {
-            var currentUserEmail = HttpContext.User.Identity.Name;
-            var currentUser = _usersService.GetUserByEmail(currentUserEmail);
-            return currentUser;
+            var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
+            var newsModelNew = _newsService.Create(newsModels, currentUser.Id);
+            return Ok(newsModelNew);
         }
     }
 }

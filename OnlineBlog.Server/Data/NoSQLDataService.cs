@@ -31,7 +31,7 @@ namespace OnlineBlog.Server.Data
             using (var db = new LiteDatabase(DBPath))
             {
                 var subs = db.GetCollection<UserSubs>(SubsCollection);
-                var subsForUser = subs.FindOne(u => u.UserId == userId);
+                var subsForUser = subs.FindOne(u => u.Id == userId);
                 return subsForUser;
             }
         }
@@ -46,12 +46,18 @@ namespace OnlineBlog.Server.Data
             using (var db = new LiteDatabase(DBPath))
             {
                 var subs = db.GetCollection<UserSubs>(SubsCollection);
-                var subsForUser = subs.FindOne(u => u.UserId == from);
+                var subsForUser = subs.FindOne(u => u.Id == from);
+                var sub = new UserSub
+                {
+                    Id = to,
+                    Date = DateTime.Now
+                };
+
                 if (subsForUser != null)
                 {
-                    if (!subsForUser.Users.Contains(to))
+                    if (!subsForUser.Users.Select(u => u.Id).Contains(to))
                     {
-                        subsForUser.Users.Add(to);
+                        subsForUser.Users.Add(sub);
                         subs.Update(subsForUser);
                     }
                 }
@@ -59,11 +65,11 @@ namespace OnlineBlog.Server.Data
                 {
                     var newSubsForUser = new UserSubs
                     {
-                        UserId = from,
-                        Users = [to]
+                        Id = from,
+                        Users = [sub]
                     };
                     subs.Insert(newSubsForUser);
-                    subs.EnsureIndex(u => u.UserId);
+                    subs.EnsureIndex(u => u.Id);
                     subsForUser = newSubsForUser;
                 }
                 return subsForUser;

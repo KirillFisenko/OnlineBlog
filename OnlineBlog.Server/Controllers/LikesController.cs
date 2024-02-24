@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineBlog.Server.Data;
 using OnlineBlog.Server.Services;
 
 namespace OnlineBlog.Server.Controllers
@@ -29,7 +28,7 @@ namespace OnlineBlog.Server.Controllers
         [HttpPost("{newsId}")]
         public IActionResult SetLike(Guid newsId)
         {
-            var currentUser = GetCurrentUser();
+            var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)
             {
                 return NotFound();
@@ -38,16 +37,5 @@ namespace OnlineBlog.Server.Controllers
             return Ok();
         }
         #endregion
-
-        /// <summary>
-        /// Найти текущего пользователя
-        /// </summary>
-        [HttpGet("{userId}")]
-        public User GetCurrentUser()
-        {
-            var currentUserEmail = HttpContext.User.Identity.Name;
-            var currentUser = _usersService.GetUserByEmail(currentUserEmail);
-            return currentUser;
-        }
     }
 }

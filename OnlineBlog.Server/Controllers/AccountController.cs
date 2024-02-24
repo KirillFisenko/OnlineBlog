@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineBlog.Server.Data;
 using OnlineBlog.Server.Models;
 using OnlineBlog.Server.Services;
 
@@ -25,7 +24,7 @@ namespace OnlineBlog.Server.Controllers
         /// Создать пользователя, регистрация
         /// </summary>
         [HttpPost]
-        [AllowAnonymous]
+        [AllowAnonymous] // можно незарегистрированным пользователям
         public ActionResult<UserModel> Create(UserModel user)
         {
             var newUser = _usersService.Create(user);
@@ -38,7 +37,7 @@ namespace OnlineBlog.Server.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var currentUser = GetCurrentUser();
+            var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             return currentUser == null
                 ? NotFound()
                 : Ok(new UserModel()
@@ -58,7 +57,7 @@ namespace OnlineBlog.Server.Controllers
         [HttpPatch]
         public ActionResult<UserModel> Update(UserModel user)
         {
-            var currentUser = GetCurrentUser();
+            var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)
             {
                 return NotFound();
@@ -73,7 +72,7 @@ namespace OnlineBlog.Server.Controllers
         [HttpDelete]
         public IActionResult Delete()
         {
-            var currentUser = GetCurrentUser();
+            var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)
             {
                 return NotFound();
@@ -82,16 +81,5 @@ namespace OnlineBlog.Server.Controllers
             return Ok();
         }
         #endregion
-
-        /// <summary>
-        /// Найти текущего пользователя
-        /// </summary>
-        [HttpGet("GetCurrentUser")]
-        public User GetCurrentUser()
-        {
-            var currentUserEmail = HttpContext.User.Identity.Name;
-            var currentUser = _usersService.GetUserByEmail(currentUserEmail);
-            return currentUser;
-        }
     }
 }

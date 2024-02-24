@@ -98,6 +98,28 @@ namespace OnlineBlog.Server.Services
             _dataContext.Users.Remove(user);
             _dataContext.SaveChanges();
         }
-        #endregion        
+        #endregion
+
+        /// <summary>
+        /// Создать пользователей массово в БД
+        /// </summary>
+        public List<UserModel> Create(List<UserModel> users)
+        {
+            foreach (var user in users)
+            {
+                var newUser = new User()
+                {
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Password = user.Password,
+                    Photo = user.Photo,
+                    Description = user.Description
+                };
+                _dataContext.Users.Add(newUser);
+            }
+            _dataContext.SaveChanges();
+            return users;
+        }
     }
 }
