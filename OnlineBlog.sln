@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineBlog.Server", "OnlineBlog.Server\OnlineBlog.Server.csproj", "{7BB5C23A-F34D-4E69-8E69-6A6030E533AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineBlog.Server", "OnlineBlog.Server\OnlineBlog.Server.csproj", "{7BB5C23A-F34D-4E69-8E69-6A6030E533AE}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "onlineblog.client", "onlineblog.client\onlineblog.client.esproj", "{7047B2C3-4BC6-47C6-A2E5-283B0D60B4BD}"
 EndProject

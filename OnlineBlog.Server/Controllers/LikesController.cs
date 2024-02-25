@@ -21,7 +21,6 @@ namespace OnlineBlog.Server.Controllers
             _usersService = usersService;
         }
 
-        #region CRUD
         /// <summary>
         /// Поставить лайк посту
         /// </summary>
@@ -36,6 +35,5 @@ namespace OnlineBlog.Server.Controllers
             _likesService.SetLike(newsId, currentUser.Id);
             return Ok();
         }
-        #endregion
     }
 }

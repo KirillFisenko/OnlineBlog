@@ -17,7 +17,7 @@ namespace OnlineBlog.Server.Helpers
         /// <summary>
         /// Маппинг модели поста
         /// </summary>
-        public NewsModel ToModel(News news)
+        public NewsModel NewsToNewsModel(News news)
         {
             var likes = _noSQLDataService.GetNewsLike(news.Id)?.Users?.Count() ?? 0;
             return new NewsModel()
@@ -31,24 +31,9 @@ namespace OnlineBlog.Server.Helpers
         }
 
         /// <summary>
-        /// Маппинг модели пользователя
-        /// </summary>
-        public UserModel ToModel(User user)
-        {
-            return new UserModel()
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Description = user.Description,
-                Photo = user.Photo
-            };
-        }
-
-        /// <summary>
         /// Маппинг модели профиля
         /// </summary>
-        public UserProfileModel ToProfile(User user)
+        public UserProfileModel UserToUserProfileModel(User user)
         {
             var userSubs = _noSQLDataService.GetUserSubs(user.Id)?.Users?.Count() ?? 0;
             return new UserProfileModel()
@@ -66,7 +51,7 @@ namespace OnlineBlog.Server.Helpers
         /// <summary>
         /// Маппинг модели сокращенного представления пользователя
         /// </summary>
-        public UserShortModel ToShortModel(User user)
+        public UserShortModel UserToUserShortModel(User user)
         {
             return new UserShortModel()
             {

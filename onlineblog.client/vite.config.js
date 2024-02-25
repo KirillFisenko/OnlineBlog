@@ -46,6 +46,22 @@ export default defineConfig({
             '^/weatherforecast': {
                 target,
                 secure: false
+            },
+            '^/account': {
+                target,
+                secure: false
+            },
+            '^/users': {
+                target,
+                secure: false
+            },
+            '^/news': {
+                target,
+                secure: false
+            },
+            '^/token': {
+                target,
+                secure: false
             }
         },
         port: 5173,

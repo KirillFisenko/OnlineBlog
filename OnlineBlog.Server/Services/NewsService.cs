@@ -19,12 +19,12 @@ namespace OnlineBlog.Server.Services
             _mapping = mapping;
         }
 
-        #region CRUD
+
         /// <summary>
-        /// Создать публикацию в БД
+        /// Создать пост
         /// </summary>
         /// <param name="newsModel">
-        /// Публикация (пост)
+        /// Пост
         /// </param>
         /// <param name="authorId">
         /// Id пользователя
@@ -41,12 +41,12 @@ namespace OnlineBlog.Server.Services
             _dataContext.News.Add(newNews);
             _dataContext.SaveChanges();
             newsModel.Id = newNews.Id;
-            newsModel = _mapping.ToModel(newNews);
+            newsModel = _mapping.NewsToNewsModel(newNews);
             return newsModel;
         }
 
         /// <summary>
-        /// Получить публикации автора из БД
+        /// Получить пост автора
         /// </summary>
         public List<NewsModel> GetByAuthor(Guid authorId)
         {
@@ -54,13 +54,13 @@ namespace OnlineBlog.Server.Services
                 .Where(n => n.AuthorId == authorId)
                 .OrderBy(n => n.PostDate)
                 .Reverse()
-                .Select(_mapping.ToModel)
+                .Select(_mapping.NewsToNewsModel)
                 .ToList();
             return news;
         }
 
         /// <summary>
-        /// Получить подписки пользователя из БД NoSQL
+        /// Получить посты пользователя на основе подписок
         /// </summary>
         public List<NewsModel> GetNewsForCurrentUser(Guid authorId)
         {
@@ -71,18 +71,17 @@ namespace OnlineBlog.Server.Services
                 foreach (var sub in subs.Users)
                 {
                     var allNewsByAuthor = _dataContext.News.Where(n => n.AuthorId == sub.Id);
-                    allNews.AddRange(allNewsByAuthor.Select(_mapping.ToModel));
+                    allNews.AddRange(allNewsByAuthor.Select(_mapping.NewsToNewsModel));
                 }
             }
-            allNews.Sort(new NewsComparer());
-            return allNews;
+            return allNews.OrderByDescending(n => n.PostDate).ToList();
         }
 
         /// <summary>
-        /// Обновить публикацию в БД
+        /// Редактировать пост
         /// </summary>
         /// <param name="newsModel">
-        /// Публикация (пост)
+        /// Пост
         /// </param>
         /// <param name="authorId">
         /// Id пользователя
@@ -98,15 +97,15 @@ namespace OnlineBlog.Server.Services
             newsToUpdate.Text = newsModel.Text;
             _dataContext.News.Update(newsToUpdate);
             _dataContext.SaveChanges();
-            newsModel = _mapping.ToModel(newsToUpdate);
+            newsModel = _mapping.NewsToNewsModel(newsToUpdate);
             return newsModel;
         }
 
         /// <summary>
-        /// Удалить публикацию в БД
+        /// Удалить пост
         /// </summary>
-        /// <param name="newsModel">
-        /// Публикация (пост)
+        /// <param name="newsId">
+        /// Id поста
         /// </param>
         /// <param name="authorId">
         /// Id пользователя
@@ -121,18 +120,11 @@ namespace OnlineBlog.Server.Services
             _dataContext.News.Remove(newsToDelete);
             _dataContext.SaveChanges();
         }
-        #endregion
 
         /// <summary>
-        /// Создать посты в БД
-        /// </summary>
-        /// <param name="newsModel">
-        /// Посты
-        /// </param>
-        /// <param name="authorId">
-        /// Id пользователя
-        /// </param>
-        public List<NewsModel> Create(List<NewsModel> newsModels, Guid authorId)
+        /// Создать посты массово, временно
+        /// </summary>        
+        public List<NewsModel> CreateTemp(List<NewsModel> newsModels, Guid authorId)
         {
             foreach (var news in newsModels)
             {

@@ -6,7 +6,7 @@
     public class UserSubs
     {
         /// <summary>
-        /// Id пользователя
+        /// Id подписки
         /// </summary>
         public Guid Id { get; set; }
 
@@ -18,8 +18,14 @@
 
     public class UserSub
     {
+        /// <summary>
+        /// Id пользователя
+        /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        /// Дата подписки
+        /// </summary>
         public DateTime Date { get; set; }
     }
 }

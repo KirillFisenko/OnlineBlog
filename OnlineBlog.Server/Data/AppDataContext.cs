@@ -13,7 +13,7 @@ namespace OnlineBlog.Server.Data
         public DbSet<User> Users { get; set; }
 
         /// <summary>
-        /// Таблица новостей
+        /// Таблица постов
         /// </summary>
         public DbSet<News> News { get; set; }
 

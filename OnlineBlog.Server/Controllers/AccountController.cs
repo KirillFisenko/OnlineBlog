@@ -19,13 +19,12 @@ namespace OnlineBlog.Server.Controllers
             _usersService = usersService;
         }
 
-        #region CRUD
         /// <summary>
         /// Создать пользователя, регистрация
         /// </summary>
         [HttpPost]
         [AllowAnonymous] // можно незарегистрированным пользователям
-        public ActionResult<UserModel> Create(UserModel user)
+        public IActionResult Create(UserModel user)
         {
             var newUser = _usersService.Create(user);
             return Ok(newUser);
@@ -52,10 +51,10 @@ namespace OnlineBlog.Server.Controllers
         }
 
         /// <summary>
-        /// Обновить пользователя
+        /// Редактировать пользователя
         /// </summary>
         [HttpPatch]
-        public ActionResult<UserModel> Update(UserModel user)
+        public IActionResult Update(UserModel user)
         {
             var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)
@@ -80,6 +79,5 @@ namespace OnlineBlog.Server.Controllers
             _usersService.Delete(currentUser);
             return Ok();
         }
-        #endregion
     }
 }

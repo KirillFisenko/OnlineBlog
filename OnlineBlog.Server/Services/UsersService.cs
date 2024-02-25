@@ -10,18 +10,15 @@ namespace OnlineBlog.Server.Services
     public class UsersService
     {
         private AppDataContext _dataContext;
-        private NoSQLDataService _noSQLDataService;
         private Mapping _mapping;
-        public UsersService(AppDataContext dataContext, NoSQLDataService noSQLDataService, Mapping mapping)
+        public UsersService(AppDataContext dataContext, Mapping mapping)
         {
             _dataContext = dataContext;
-            _noSQLDataService = noSQLDataService;
             _mapping = mapping;
         }
 
-        #region CRUD
         /// <summary>
-        /// Создать пользователя в БД
+        /// Создать пользователя
         /// </summary>
         public UserModel Create(UserModel userModel)
         {
@@ -41,7 +38,7 @@ namespace OnlineBlog.Server.Services
         }
 
         /// <summary>
-        /// Получить пользователя по Email из БД
+        /// Получить пользователя по Email
         /// </summary>
         public User GetUserByEmail(string email)
         {
@@ -49,11 +46,11 @@ namespace OnlineBlog.Server.Services
         }
 
         /// <summary>
-        /// Получить пользователя по Id из БД
+        /// Получить профайл пользователя по Id
         /// </summary>
         public UserProfileModel GetUserProfileById(Guid userId)
         {
-            return _mapping.ToProfile(_dataContext.Users?.FirstOrDefault(user => user.Id == userId));
+            return _mapping.UserToUserProfileModel(_dataContext.Users?.FirstOrDefault(user => user.Id == userId));
         }
 
         /// <summary>
@@ -64,12 +61,12 @@ namespace OnlineBlog.Server.Services
             return _dataContext.Users
                 .Where(n => n.FirstName.ToLower().Contains(name.ToLower())
                 || n.LastName.ToLower().Contains(name.ToLower()))
-                .Select(_mapping.ToShortModel)
+                .Select(_mapping.UserToUserShortModel)
                 .ToList();
         }
 
         /// <summary>
-        /// Обновить пользователя в БД
+        /// Редактировать пользователя
         /// </summary>
         public UserModel Update(UserModel userModel)
         {
@@ -91,19 +88,18 @@ namespace OnlineBlog.Server.Services
         }
 
         /// <summary>
-        /// Удалить пользователя из БД
+        /// Удалить пользователя
         /// </summary>
         public void Delete(User user)
         {
             _dataContext.Users.Remove(user);
             _dataContext.SaveChanges();
         }
-        #endregion
 
         /// <summary>
-        /// Создать пользователей массово в БД
+        /// Создать пользователей массово, временно
         /// </summary>
-        public List<UserModel> Create(List<UserModel> users)
+        public List<UserModel> CreateTemp(List<UserModel> users)
         {
             foreach (var user in users)
             {

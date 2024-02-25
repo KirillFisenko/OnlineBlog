@@ -6,7 +6,7 @@
     public class UserProfileModel
     {
         /// <summary>
-        /// id пользователя
+        /// Id пользователя
         /// </summary>
         public Guid Id { get; set; }
 

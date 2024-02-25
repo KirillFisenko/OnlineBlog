@@ -40,13 +40,13 @@ namespace OnlineBlog.Server.Controllers
         }
 
         /// <summary>
-        /// Создать массово пользователей
+        /// Создать массово пользователей, временный
         /// </summary>
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult CreateUsers(List<UserModel> users)
+        public IActionResult CreateUsersTemp(List<UserModel> users)
         {
-            var newUsers = _usersService.Create(users);
+            var newUsers = _usersService.CreateTemp(users);
             return Ok(newUsers);
         }
     }

@@ -40,7 +40,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// Подключение к БД
+// Подключение к БД SQL
 string connection = builder.Configuration.GetConnectionString("mssqllocaldb");
 builder.Services.AddDbContext<AppDataContext>(options => options.UseSqlServer(connection));
 

@@ -22,7 +22,7 @@ namespace OnlineBlog.Server.Controllers
             _usersService = usersService;
         }
 
-        #region CRUD
+
         /// <summary>
         /// Создать пост
         /// </summary>
@@ -52,7 +52,7 @@ namespace OnlineBlog.Server.Controllers
         /// Получить посты на основе подписок
         /// </summary>
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetBySubs()
         {
             var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)
@@ -64,7 +64,7 @@ namespace OnlineBlog.Server.Controllers
         }
 
         /// <summary>
-        /// Обновить пост
+        /// Редактировать пост
         /// </summary>
         [HttpPatch]
         public IActionResult Update(NewsModel newsModel)
@@ -92,16 +92,15 @@ namespace OnlineBlog.Server.Controllers
             _newsService.Delete(newsId, currentUser.Id);
             return Ok();
         }
-        #endregion
 
         /// <summary>
         /// Создать массово посты, временный
         /// </summary>
         [HttpPost("all")]
-        public IActionResult Create(List<NewsModel> newsModels)
+        public IActionResult CreateTemp(List<NewsModel> newsModels)
         {
             var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
-            var newsModelNew = _newsService.Create(newsModels, currentUser.Id);
+            var newsModelNew = _newsService.CreateTemp(newsModels, currentUser.Id);
             return Ok(newsModelNew);
         }
     }

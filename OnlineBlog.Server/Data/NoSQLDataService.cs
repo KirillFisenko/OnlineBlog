@@ -77,7 +77,7 @@ namespace OnlineBlog.Server.Data
         }
 
         /// <summary>
-        /// Получить коллекцию лайков поста
+        /// Получить лайки поста
         /// </summary>
         /// <param name="newsId">id поста</param>        
         public NewsLike GetNewsLike(Guid newsId)

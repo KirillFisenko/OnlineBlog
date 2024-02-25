@@ -2,6 +2,9 @@
 
 namespace OnlineBlog.Server.Services
 {
+    /// <summary>
+    /// Сервис лайков
+    /// </summary>
     public class LikesService
     {
         private NoSQLDataService _noSQLDataService;

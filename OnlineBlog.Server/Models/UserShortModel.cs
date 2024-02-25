@@ -1,12 +1,12 @@
 ﻿namespace OnlineBlog.Server.Models
 {
     /// <summary>
-    /// Укороченная представление пользователя
+    /// Укороченное представление пользователя
     /// </summary>
     public class UserShortModel
     {
         /// <summary>
-        /// id пользователя
+        /// Id пользователя
         /// </summary>
         public Guid Id { get; set; }
 
