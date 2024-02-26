@@ -1,33 +1,16 @@
-const ACCOUNT_URL = 'account';
+export const ACCOUNT_URL = 'account';
+export const USERS_URL = 'users';
+export const SUBSCRIBE_URL = 'subscribe';
+export const LIKES_URL = 'likes';
+export const NEWS_URL = 'news';
 const TOKEN_URL = 'token';
-const USERS_URL = 'users';
-const SUBSCRIBE_URL = 'subscribe';
-const LIKES_URL = 'likes';
-const NEWS_URL = 'news';
 const BASE_URL = 'login';
-
-function sendRequest(url, baseUrl, successAction, errorAction) {
-    fetch(url)
-        .then(response => {
-            if (response.status === 401) {
-                // Ошибка авторизации 401
-                window.location.href = baseUrl; // Редирект на базовый URL
-            } else {
-                // Обработка успешного ответа
-                successAction();
-            }
-        })
-        .catch(error => {
-            // Обработка других ошибок
-            errorAction();
-        });
-
-}
+const TOKEN_NAME = 'Token';
 
 export async function getToken(login, password) {
-    const url = TOKEN_URL;
-    const token = await sendAuthenticatedRequest(url, 'POST', login, password);
-    console.log(token);
+    const token = await sendAuthenticatedRequest(TOKEN_URL, 'POST', login, password);
+    localStorage.setItem(TOKEN_NAME, token.accessToken);
+    window.location.href = 'profile';
 }
 
 async function sendAuthenticatedRequest(url, method, username, password, data) {
@@ -59,4 +42,40 @@ async function sendAuthenticatedRequest(url, method, username, password, data) {
         // Произошла ошибка при выполнении запроса
         throw new Error('Ошибка ' + resultFetch.status + ': ' + resultFetch.statusText);
     };
+}
+
+export async function sendRequestWithToken(url, method, data) {
+    var headers = new Headers();
+    const token = localStorage.getItem(TOKEN_NAME);
+    headers.set('Authorization', `Bearer ${token}`);
+
+    // Устанавливаем тип контента (если есть данные)
+    if (data) {
+        headers.set('Content-Type', 'application/json');
+    }
+
+    // Создаем объект параметров запроса
+    var requestOptions = {
+        method: method,
+        headers: headers,
+        body: data ? JSON.stringify(data) : undefined
+    };
+
+    // Отправляем запрос с помощью fetch
+    var resultFetch = await fetch(url, requestOptions);
+    if (resultFetch.ok) {
+        // Запрос успешно выполнен
+        const result = await resultFetch.json();
+        return result
+    } else {
+        // Произошла ошибка при выполнении запроса
+        errorRequest(resultFetch.status);
+    };
+}
+
+function errorRequest(status) {
+    if (status === 401) {
+        // Ошибка авторизации 401
+        window.location.href = BASE_URL; // Редирект на базовый URL
+    }
 }

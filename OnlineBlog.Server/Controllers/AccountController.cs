@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OnlineBlog.Server.Helpers;
 using OnlineBlog.Server.Models;
 using OnlineBlog.Server.Services;
 
@@ -14,9 +15,11 @@ namespace OnlineBlog.Server.Controllers
     public class AccountController : Controller
     {
         private UsersService _usersService;
-        public AccountController(UsersService usersService)
+        private Mapping _mapping;
+        public AccountController(UsersService usersService, Mapping mapping)
         {
             _usersService = usersService;
+            _mapping = mapping;
         }
 
         /// <summary>
@@ -39,15 +42,7 @@ namespace OnlineBlog.Server.Controllers
             var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             return currentUser == null
                 ? NotFound()
-                : Ok(new UserModel()
-                {
-                    Id = currentUser.Id,
-                    Email = currentUser.Email,
-                    FirstName = currentUser.FirstName,
-                    LastName = currentUser.LastName,
-                    Description = currentUser.Description,
-                    Photo = currentUser.Photo
-                });
+                : Ok(_mapping.UserToUserProfileModel(currentUser));
         }
 
         /// <summary>

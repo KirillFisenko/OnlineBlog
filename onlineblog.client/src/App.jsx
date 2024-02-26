@@ -1,15 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { PageOne, PageTwo } from './components/Pages';
 import Login from './components/Login';
+import UserProfile from './components/UserProfile';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<PageOne />} />
+        <Route path="/" element={<Login />} />
         <Route path="login" element={<Login />} />
-        <Route path="one" element={<PageOne />} />
-        <Route path="two" element={<PageTwo />} />
+        <Route path='profile' element={<UserProfile />} />        
       </Routes>
     </BrowserRouter>
   );

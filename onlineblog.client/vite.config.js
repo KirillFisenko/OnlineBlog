@@ -43,10 +43,6 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/weatherforecast': {
-                target,
-                secure: false
-            },
             '^/account': {
                 target,
                 secure: false
@@ -60,6 +56,14 @@ export default defineConfig({
                 secure: false
             },
             '^/token': {
+                target,
+                secure: false
+            },
+            '^/subscribe': {
+                target,
+                secure: false
+            },
+            '^/likes': {
                 target,
                 secure: false
             }

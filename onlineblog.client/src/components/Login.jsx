@@ -10,7 +10,7 @@ const Login = () => {
         getToken(username, password);
     }
     return (
-        <div>
+        <div> 
             <p>Login</p>
             <input type='text' onChange={e => setUserName(e.target.value)} />
             <p>Password</p>
