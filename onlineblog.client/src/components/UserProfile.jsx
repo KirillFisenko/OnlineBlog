@@ -23,7 +23,8 @@ const UserProfile = () => {
     }, []);
 
     const updateUser = (newuser) => {
-        
+        setUser(newUser);
+        updateUser(newUser);
     }
     return (
         // отображения страницы профиля
@@ -35,7 +36,7 @@ const UserProfile = () => {
             <p><strong>SubsCount:</strong> {user.subsCount}</p>
             <p><strong>Description:</strong> {user.description}</p>            
             <ImageComponent byteArray={user.photo} />
-            <ModalButton modalContent = {<UserProfileCreation user = {user} />} title = {'Редактирование профиля'} />
+            <ModalButton modalContent={<UserProfileCreation user={user} setAction={updateUser} />} title={'Редактирование профиля'} />
         </div>
     );
 };
