@@ -8,8 +8,9 @@ const ImageUploader = ({ byteImageAction }) => {
             const reader = new FileReader();
 
             reader.onload = (e) => {
+                const fileContentString = e.target.result;
                 const byteArray = new Uint8Array(e.target.result);
-                byteImageAction(byteArray);
+                byteImageAction(fileContentString, byteArray);
             };
 
             reader.readAsArrayBuffer(file);

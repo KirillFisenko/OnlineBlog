@@ -22,8 +22,8 @@ const UserProfile = () => {
         fetchUser();
     }, []);
 
-    const updateUser = (newuser) => {
-        setUser(newUser);
+    const updateUserView = (newUser) => {
+       setUser(newUser);
         updateUser(newUser);
     }
     return (
@@ -35,8 +35,8 @@ const UserProfile = () => {
             <p><strong>Email:</strong> {user.email}</p>
             <p><strong>SubsCount:</strong> {user.subsCount}</p>
             <p><strong>Description:</strong> {user.description}</p>            
-            <ImageComponent byteArray={user.photo} />
-            <ModalButton modalContent={<UserProfileCreation user={user} setAction={updateUser} />} title={'Редактирование профиля'} />
+            <ImageComponent base64String={user.photo} />
+            <ModalButton modalContent={<UserProfileCreation user={user} setAction={updateUserView} />} title={'Редактирование профиля'} />
         </div>
     );
 };

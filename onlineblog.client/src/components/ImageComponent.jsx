@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ImageComponent = ({ byteArray }) => {
+const ImageComponent = ({ base64String }) => {
   // Преобразование массива байтов в base64-строку
   const base64String = btoa(
     new Uint8Array(byteArray).reduce((data, byte) => data + String.fromCharCode(byte), '')

@@ -8,6 +8,7 @@ const UserProfileCreation = ({ user, setAction }) => {
     const [userEmail, setUserEmail] = useState(user.email);
     const [userDescription, setUserDescription] = useState(user.description);
     const [userPhoto, setUserPhoto] = useState(user.photo);
+    const [userPhotoStr, setUserPhotoStr] = useState('');
 
     const endCreate = () => {
         const newUser = {
@@ -19,6 +20,9 @@ const UserProfileCreation = ({ user, setAction }) => {
         }
         setAction(newUser);
     }
+
+    const image = userPhotoStr.length > 0 ? <img src={`data:image/png;base64,${base64String}`} alt="Image" /> : <ImageComponent base64String={user.photo} />
+
     return (
         // карточка редактирования профиля
         <div style={{display: 'flex', flexDirection: 'colimn'} }>
@@ -32,8 +36,9 @@ const UserProfileCreation = ({ user, setAction }) => {
             <p>Описание</p>
             <textarea defaultValue={userDescription} onChange={e => setUserDescription(e.target.value)} />
             <p>Фото</p>
-            <ImageUploader byteImageAction={(bytes) => setUserPhoto(bytes)} />
-            <ImageComponent byteArray={userPhoto} />
+            {image}
+            <ImageUploader byteImageAction={(str, bytes) => { setUserPhoto(bytes), setUserPhotoStr(str) }} />
+            
             <button onClick={endCreate}>Ok</button>
         </div>
     );

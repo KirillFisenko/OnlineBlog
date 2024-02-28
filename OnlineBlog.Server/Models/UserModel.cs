@@ -1,4 +1,7 @@
-﻿namespace OnlineBlog.Server.Models
+﻿using Microsoft.EntityFrameworkCore.Storage.Json;
+using Newtonsoft.Json;
+
+namespace OnlineBlog.Server.Models
 {
     /// <summary>
     /// Пользователь
@@ -38,6 +41,25 @@
         /// <summary>
         /// Фото (аватар) пользователя
         /// </summary>
-        public byte[]? Photo { get; set; }
+        public string Photo { get; set; }
+
+        public byte[] GetPhoto()
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<byte[]>(Photo);
+            }
+            catch
+            {
+                try
+                {
+                    return JsonConvert.DeserializeObject<byte[]>("[" + Photo + "]");
+                }
+                catch
+                {
+                    return Array.Empty<byte>();
+                }
+            }
+        }
     }
 }

@@ -6,7 +6,9 @@ export async function getUser(){
     return user;
 }
 
-export async function updateUser(user) {
+export async function updateUser(user) {    
+    user.photo = user.photo.toString()
     var newUser = await sendRequestWithToken(ACCOUNT_URL, 'PATCH')
+    window.location.href = 'profile';
     return newUser;
 }
