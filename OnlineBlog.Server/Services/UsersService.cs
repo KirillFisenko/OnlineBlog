@@ -28,7 +28,7 @@ namespace OnlineBlog.Server.Services
                 FirstName = userModel.FirstName,
                 LastName = userModel.LastName,
                 Password = userModel.Password,
-                Photo = userModel.GetPhoto(),
+                Photo = userModel.Photo,
                 Description = userModel.Description
             };
             _dataContext.Users.Add(newUser);
@@ -78,9 +78,8 @@ namespace OnlineBlog.Server.Services
             userToUpdate.Email = userModel.Email;
             userToUpdate.FirstName = userModel.FirstName;
             userToUpdate.LastName = userModel.LastName;
-            userToUpdate.Password = userModel.Password;
             userToUpdate.Description = userModel.Description;
-            userToUpdate.Photo = userModel.GetPhoto();
+            userToUpdate.Photo = userModel.Photo;
 
             _dataContext.Users.Update(userToUpdate);
             _dataContext.SaveChanges();
@@ -109,7 +108,7 @@ namespace OnlineBlog.Server.Services
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Password = user.Password,
-                    Photo = user.GetPhoto(),
+                    Photo = user.Photo,
                     Description = user.Description
                 };
                 _dataContext.Users.Add(newUser);

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace OnlineBlog.Server.Models
+﻿namespace OnlineBlog.Server.Models
 {
     /// <summary>
     /// Пользователь
@@ -40,25 +38,25 @@ namespace OnlineBlog.Server.Models
         /// <summary>
         /// Фото (аватар) пользователя
         /// </summary>
-        public string? Photo { get; set; }
+        public byte[]? Photo { get; set; }
 
-        public byte[] GetPhoto()
-        {
-            try
-            {
-                return JsonConvert.DeserializeObject<byte[]>(Photo);
-            }
-            catch
-            {
-                try
-                {
-                    return JsonConvert.DeserializeObject<byte[]>("[" + Photo + "]");
-                }
-                catch
-                {
-                    return Array.Empty<byte>();
-                }
-            }
-        }
+        //public byte[] GetPhoto()
+        //{
+        //    try
+        //    {
+        //        return JsonConvert.DeserializeObject<byte[]>(Photo);
+        //    }
+        //    catch
+        //    {
+        //        try
+        //        {
+        //            return JsonConvert.DeserializeObject<byte[]>("[" + Photo + "]");
+        //        }
+        //        catch
+        //        {
+        //            return Array.Empty<byte>();
+        //        }
+        //    }
+        //}
     }
 }

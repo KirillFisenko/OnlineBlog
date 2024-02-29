@@ -1,4 +1,5 @@
-﻿using OnlineBlog.Server.Data;
+﻿using Newtonsoft.Json;
+using OnlineBlog.Server.Data;
 using OnlineBlog.Server.Models;
 
 namespace OnlineBlog.Server.Helpers
@@ -45,6 +46,38 @@ namespace OnlineBlog.Server.Helpers
                 Description = user.Description,
                 Photo = user.Photo,
                 SubsCount = userSubs
+            };
+        }
+
+        public string ByteToString(byte[] photo)
+        {
+            try
+            {
+                return JsonConvert.SerializeObject(photo);
+            }
+            catch
+            {
+                try
+                {
+                    return JsonConvert.SerializeObject("[" + photo + "]");
+                }
+                catch
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        public UserModel UserProfileModelToUserModel(UserProfileModel user)
+        {
+            return new UserModel()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Description = user.Description,
+                Photo = user.Photo
             };
         }
 

@@ -40,23 +40,24 @@ namespace OnlineBlog.Server.Controllers
         public IActionResult Get()
         {
             var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
+            var currentUserProfile = _mapping.UserToUserProfileModel(currentUser);
             return currentUser == null
                 ? NotFound()
-                : Ok(_mapping.UserToUserProfileModel(currentUser));
+                : Ok(currentUserProfile);
         }
 
         /// <summary>
         /// Редактировать пользователя
         /// </summary>
         [HttpPatch]
-        public IActionResult Update(UserModel user)
+        public IActionResult Update(UserProfileModel user)
         {
             var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)
             {
                 return NotFound();
             }
-            _usersService.Update(user);
+            _usersService.Update(_mapping.UserProfileModelToUserModel(user));
             return Ok(user);
         }
 

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import ImageComponent from './ImageComponent';
 import ImageUploader from './ImageUploader';
+import './UserProfileCreation.css';
 
 const UserProfileCreation = ({ user, setAction }) => {
     const [userFirstName, setFirstName] = useState(user.firstName);
     const [userLastName, setLastName] = useState(user.lastName);
-    const [userEmail, setUserEmail] = useState(user.email);
-    const [userPassword, setUserPassword] = useState();
+    const [userEmail, setUserEmail] = useState(user.email);    
     const [userDescription, setUserDescription] = useState(user.description);
     const [userPhoto, setUserPhoto] = useState(user.photo);
     const [userPhotoStr, setUserPhotoStr] = useState('');
@@ -17,9 +17,8 @@ const UserProfileCreation = ({ user, setAction }) => {
             id: user.id,
             firstName: userFirstName,
             lastName: userLastName,
-            email: userEmail,
-            description: userDescription,
-            password: userPassword,
+            email: userEmail,           
+            description: userDescription,            
             photo: userPhoto
         }
         setAction(newUser);
@@ -29,23 +28,19 @@ const UserProfileCreation = ({ user, setAction }) => {
 
     return (
         // карточка редактирования профиля
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-
+        <div class='user-profile-container'>
             <h2>User Profile</h2>
             <p>Имя</p>
             <input type='text' value={userFirstName} onChange={e => setFirstName(e.target.value)} />
             <p>Фамилия</p>
             <input type='text' value={userLastName} onChange={e => setLastName(e.target.value)} />
             <p>Email</p>
-            <input type='text' value={userEmail} onChange={e => setUserEmail(e.target.value)} />
-            <p>Password</p>
-            <input type='text' value={userPassword} onChange={e => setUserPassword(e.target.value)} />
+            <input type='text' value={userEmail} onChange={e => setUserEmail(e.target.value)} />            
             <p>Описание</p>
             <textarea value={userDescription} onChange={e => setUserDescription(e.target.value)} />
             <p>Фото</p>
             {image}
             <ImageUploader byteImageAction={(str, bytes) => { setUserPhoto(bytes); setUserPhotoStr(str); }} />
-
             <button onClick={endCreate}>Ok</button>
         </div>
     );
