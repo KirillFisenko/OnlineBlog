@@ -19,8 +19,8 @@ const ImageUploader = ({ byteImageAction }) => {
 
     return (
         <div>
-        <input type= "file" accept = "image/*" onChange = { handleFileChange } />
-            </div>
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+        </div>
     );
 };
 

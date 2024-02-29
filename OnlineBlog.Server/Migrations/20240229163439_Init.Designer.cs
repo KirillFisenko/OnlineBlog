@@ -12,7 +12,7 @@ using OnlineBlog.Server.Data;
 namespace OnlineBlog.Server.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20240224110826_Init")]
+    [Migration("20240229163439_Init")]
     partial class Init
     {
         /// <inheritdoc />

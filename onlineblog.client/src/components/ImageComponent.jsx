@@ -1,17 +1,12 @@
 import React from 'react';
 
 const ImageComponent = ({ base64String }) => {
-  // Преобразование массива байтов в base64-строку
-  const base64String = btoa(
-    new Uint8Array(byteArray).reduce((data, byte) => data + String.fromCharCode(byte), '')
-  );
-
-  return (
-    <div>
-      <h2>Image Component</h2>
-      {base64String && <img src={`data:image/png;base64,${base64String}`} alt="Image" />}
-    </div>
-  );
+    if (base64String === null) {
+        return <img alt="Image" />;
+    }
+    // Вы должны заключить строку в обратные кавычки для использования интерполяции строк в JSX
+    const imgUrl = `data:image/jpeg;base64,${base64String}`;
+    return <img src={imgUrl} alt="Image" />;
 };
 
 export default ImageComponent;

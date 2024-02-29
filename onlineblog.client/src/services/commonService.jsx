@@ -3,14 +3,16 @@ export const USERS_URL = 'users';
 export const SUBSCRIBE_URL = 'subscribe';
 export const LIKES_URL = 'likes';
 export const NEWS_URL = 'news';
-const TOKEN_URL = 'token';
-const BASE_URL = 'login';
-const TOKEN_NAME = 'Token';
+export const TOKEN_URL = 'token';
+export const BASE_URL = 'login';
+export const TOKEN_NAME = 'Token';
+export const PROFILE_URL = '/profile';
+export const LOGIN_URL = '/login';
 
-export async function getToken(login, password) {
+export async function getToken(login, password) {    
     const token = await sendAuthenticatedRequest(TOKEN_URL, 'POST', login, password);
     localStorage.setItem(TOKEN_NAME, token.accessToken);
-    window.location.href = 'profile';
+    window.location.href = PROFILE_URL;
 }
 
 async function sendAuthenticatedRequest(url, method, username, password, data) {

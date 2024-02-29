@@ -10,14 +10,13 @@ const Login = () => {
         getToken(username, password);
     }
     return (
-        <div> 
+        <div>
             <p>Login</p>
             <input type='text' onChange={e => setUserName(e.target.value)} />
             <p>Password</p>
             <input type='password' onChange={e => setPassword(e.target.value)} />
             <button className="btn btn-primary" onClick={enterClick}>Enter</button>
         </div>
-
     );
 }
 

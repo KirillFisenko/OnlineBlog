@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.Json;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace OnlineBlog.Server.Models
 {
@@ -41,7 +40,7 @@ namespace OnlineBlog.Server.Models
         /// <summary>
         /// Фото (аватар) пользователя
         /// </summary>
-        public string Photo { get; set; }
+        public string? Photo { get; set; }
 
         public byte[] GetPhoto()
         {
