@@ -29,6 +29,7 @@
 
 .center-container button {
     padding: 10px 20px;
+    margin: 10px;
     background-color: #007bff; /* Цвет фона кнопки */
     color: #fff; /* Цвет текста кнопки */
     border: none;

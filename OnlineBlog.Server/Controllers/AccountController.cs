@@ -27,7 +27,7 @@ namespace OnlineBlog.Server.Controllers
         /// </summary>
         [HttpPost]
         [AllowAnonymous] // можно незарегистрированным пользователям
-        public IActionResult Create(UserModel user)
+        public IActionResult Create([FromBody] UserModel user)
         {
             var newUser = _usersService.Create(user);
             return Ok(newUser);
@@ -50,14 +50,14 @@ namespace OnlineBlog.Server.Controllers
         /// Редактировать пользователя
         /// </summary>
         [HttpPatch]
-        public IActionResult Update(UserProfileModel user)
+        public IActionResult Update(UserModel user)
         {
             var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)
             {
                 return NotFound();
             }
-            _usersService.Update(_mapping.UserProfileModelToUserModel(user));
+            _usersService.Update(user);
             return Ok(user);
         }
 

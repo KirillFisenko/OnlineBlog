@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { getUser, updateUser } from '../services/userService';
-import ImageComponent from './ImageComponent';
+import { exitFromProfile, getUser, updateUser } from '../services/userService';
 import UserProfileCreation from './UserProfileCreation';
 import ModalButton from './ModalButton';
 import './UserProfile.css';
+import UserView from './UserView';
 
 const UserProfile = () => {
     const [user, setUser] = useState({
-        id: '',
+        id: 0,
         firstName: '',
         lastName: '',
         email: '',
         description: '',
-        photo: ''        
+        photo: ''
     });
 
     useEffect(() => {
@@ -30,16 +30,13 @@ const UserProfile = () => {
     }
     return (
         // отображения страницы профиля
-        <div className="user-profile-container">
-            <h2>User Profile</h2>
-            <p><strong>First Name:</strong> {user.firstName}</p>
-            <p><strong>Last Name:</strong> {user.lastName}</p>
-            <p><strong>Email:</strong> {user.email}</p>            
-            <p><strong>Description:</strong> {user.description}</p>
-            <ImageComponent base64String={user.photo} />
-            <ModalButton modalContent={<UserProfileCreation user={user} setAction={updateUserView} />} title={'Редактирование профиля'} />
-        </div>
-
+        <div>
+            <div>
+                <ModalButton modalContent={<UserProfileCreation user={user} setAction={updateUserView} />} title={'Редактирование профиля'} />
+                <button type="button" className="btn btn-secondary" onClick={exitFromProfile}>Выход</button>
+            </div>
+            <UserView user={user} />
+        </div >
     );
 };
 

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using OnlineBlog.Server.Data;
 using OnlineBlog.Server.Helpers;
 using OnlineBlog.Server.Services;
@@ -48,7 +49,22 @@ builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(
+    options =>
+    {
+        var basePath = AppContext.BaseDirectory;
+        // Формируем путь к XML-документации
+        var xmlPath = Path.Combine(basePath, "OnlineBlog.xml");
+        // Включаем комментарии XML-документации для контроллеров
+        options.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
+        // Определяем конфигурацию Swagger-документации с названием и описанием версии
+        options.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Version = "v1",
+            Title = "Онлайн-блог",
+            Description = "ASP.NET Core Web API для приложения онлайн-блога (ASP.NET + React)"
+        });
+    });
 
 var app = builder.Build();
 

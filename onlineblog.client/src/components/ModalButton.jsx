@@ -10,7 +10,7 @@ const ModalComponent = ({ modalContent, title }) => {
     return (
         <>
             <Button variant="primary" onClick={handleOpenModal}>
-                Open Modal
+                Редактировать
             </Button>
 
             <Modal show={showModal} onHide={handleCloseModal}>
@@ -22,7 +22,7 @@ const ModalComponent = ({ modalContent, title }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
-                        Close
+                        Закрыть
                     </Button>
                 </Modal.Footer>
             </Modal>

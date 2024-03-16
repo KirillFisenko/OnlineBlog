@@ -8,10 +8,13 @@ export const BASE_URL = 'login';
 export const TOKEN_NAME = 'Token';
 export const PROFILE_URL = '/profile';
 export const LOGIN_URL = '/login';
+export const SIGNUP_URL = '/signup';
+const ISONLINE_NAME = 'ONLINE';
 
-export async function getToken(login, password) {    
+export async function getToken(login, password) {
     const token = await sendAuthenticatedRequest(TOKEN_URL, 'POST', login, password);
     localStorage.setItem(TOKEN_NAME, token.accessToken);
+    localStorage.setItem(ISONLINE_NAME, '1');
     window.location.href = PROFILE_URL;
 }
 
@@ -46,10 +49,12 @@ async function sendAuthenticatedRequest(url, method, username, password, data) {
     };
 }
 
-export async function sendRequestWithToken(url, method, data) {
+export async function sendRequestWithToken(url, method, data, withToken = true) {
     var headers = new Headers();
-    const token = localStorage.getItem(TOKEN_NAME);
-    headers.set('Authorization', `Bearer ${token}`);
+    if (withToken) {
+        const token = localStorage.getItem(TOKEN_NAME);
+        headers.set('Authorization', `Bearer ${token}`);
+    }
 
     // Устанавливаем тип контента (если есть данные)
     if (data) {
@@ -79,5 +84,17 @@ function errorRequest(status) {
     if (status === 401) {
         // Ошибка авторизации 401
         window.location.href = BASE_URL; // Редирект на базовый URL
+        clearStore();
     }
+}
+
+export function clearStore() {
+    localStorage.clear();
+}
+
+export function isUserOnline() {
+    if(localStorage.getItem(ISONLINE_NAME) == '1'){
+        return true;
+    }
+    return false;
 }

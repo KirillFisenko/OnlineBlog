@@ -11,7 +11,7 @@ namespace OnlineBlog.Server.Controllers
     [ApiController]
     [Authorize] // доступ только авторизованным
     [Route("[controller]")] // маршрут до контроллеров 
-    public class UsersController : Controller
+    public class UsersController : ControllerBase
     {
         private UsersService _usersService;
         public UsersController(UsersService usersService)
@@ -20,8 +20,16 @@ namespace OnlineBlog.Server.Controllers
         }
 
         /// <summary>
-        /// Получить профили по имени
+        /// Поиск профилей по имени
         /// </summary>
+        /// 
+        /// <returns>
+        /// Список найденных пользователей
+        ///</returns>
+        ///
+        /// <param name="name">
+        /// Имя или часть имени пользователя
+        /// </param>            
         [HttpGet("all/{name}")]
         public IActionResult GetUsersByName(string name)
         {

@@ -1,0 +1,609 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OnlineBlog.Server</name>
+    </assembly>
+    <members>
+        <member name="T:OnlineBlog.Server.Controllers.AccountController">
+            <summary>
+            Контроллер аккаунтов
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.AccountController.Create(OnlineBlog.Server.Models.UserModel)">
+            <summary>
+            Создать пользователя, регистрация
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.AccountController.Get">
+            <summary>
+            Получить пользователя, посмотреть профиль
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.AccountController.Update(OnlineBlog.Server.Models.UserModel)">
+            <summary>
+            Редактировать пользователя
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.AccountController.Delete">
+            <summary>
+            Удалить пользователя
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Controllers.LikesController">
+            <summary>
+            Контроллер лайков
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.LikesController.SetLike(System.Guid)">
+            <summary>
+            Поставить лайк посту
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Controllers.NewsController">
+            <summary>
+            Контроллер постов
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.NewsController.Create(OnlineBlog.Server.Models.NewsModel)">
+            <summary>
+            Создать пост
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.NewsController.GetByAuthor(System.Guid)">
+            <summary>
+            Получить посты конкретного пользователя
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.NewsController.GetBySubs">
+            <summary>
+            Получить посты на основе подписок
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.NewsController.Update(OnlineBlog.Server.Models.NewsModel)">
+            <summary>
+            Редактировать пост
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.NewsController.Delete(System.Guid)">
+            <summary>
+            Удалить пост
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.NewsController.CreateTemp(System.Collections.Generic.List{OnlineBlog.Server.Models.NewsModel})">
+            <summary>
+            Создать массово посты, временный
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Controllers.SubscribeController">
+            <summary>
+            Контроллер подписок
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.SubscribeController.Subscribe(System.Guid)">
+            <summary>
+            Подписаться на пользователя
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Controllers.Token">
+            <summary>
+            Токен авторизации
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.Token.GetToken">
+            <summary>
+            Получить jwt токен авторизации
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Controllers.UsersController">
+            <summary>
+            Контроллер пользователей
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.UsersController.GetUsersByName(System.String)">
+             <summary>
+             Поиск профилей по имени
+             </summary>
+             
+             <returns>
+             Список найденных пользователей
+            </returns>
+            
+             <param name="name">
+             Имя или часть имени пользователя
+             </param>            
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.UsersController.GetUserProfileById(System.Guid)">
+            <summary>
+            Посмотреть профиль пользователя
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Controllers.UsersController.CreateUsersTemp(System.Collections.Generic.List{OnlineBlog.Server.Models.UserModel})">
+            <summary>
+            Создать массово пользователей, временный
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Data.AppDataContext">
+            <summary>
+            Контекст БД для пользователей и постов
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.AppDataContext.Users">
+            <summary>
+            Таблица пользователей
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.AppDataContext.News">
+            <summary>
+            Таблица постов
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Data.News">
+            <summary>
+            Пост пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.News.Id">
+            <summary>
+            Id поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.News.AuthorId">
+            <summary>
+            Id автора поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.News.Text">
+            <summary>
+            Текст поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.News.Image">
+            <summary>
+            Изображение поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.News.LikesCount">
+            <summary>
+            Количество лайков у поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.News.PostDate">
+            <summary>
+            Дата публикации поста
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Data.NewsLike">
+            <summary>
+            Лайки постов
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.NewsLike.NewsId">
+            <summary>
+            Id поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.NewsLike.Users">
+            <summary>
+            Список id пользователей, которые его лайкнули
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Data.NoSQLDataService">
+            <summary>
+            NoSQL БД для хранения подписок и лайков
+            </summary>
+        </member>
+        <member name="F:OnlineBlog.Server.Data.NoSQLDataService.DBPath">
+            <summary>
+            Путь до БД
+            </summary>
+        </member>
+        <member name="F:OnlineBlog.Server.Data.NoSQLDataService.SubsCollection">
+            <summary>
+            Коллекция для подписок
+            </summary>
+        </member>
+        <member name="F:OnlineBlog.Server.Data.NoSQLDataService.NewsLikesCollection">
+            <summary>
+            Коллекция для лайков
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.GetUserSubs(System.Guid)">
+            <summary>
+            Получить подписки пользователя
+            </summary>
+            <param name="userId">id пользователя, подписки которого получить</param>        
+        </member>
+        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.SetUserSubs(System.Guid,System.Guid)">
+            <summary>
+            Подписаться на пользователя
+            </summary>
+            <param name="from">кто подписывается</param>       
+            <param name="to">на кого подписывается</param>  
+        </member>
+        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.GetNewsLike(System.Guid)">
+            <summary>
+            Получить лайки поста
+            </summary>
+            <param name="newsId">id поста</param>        
+        </member>
+        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.SetNewsLike(System.Guid,System.Guid)">
+            <summary>
+            Поставить лайк посту
+            </summary>
+            <param name="from">кто поставил лайк</param>  
+            /// <param name="newsId">id поста</param> 
+        </member>
+        <member name="T:OnlineBlog.Server.Data.User">
+            <summary>
+            Пользователь
+            </summary> 
+        </member>
+        <member name="P:OnlineBlog.Server.Data.User.Id">
+            <summary>
+            Id пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.User.FirstName">
+            <summary>
+            Имя пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.User.LastName">
+            <summary>
+            Фамилия пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.User.Email">
+            <summary>
+            Email пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.User.Password">
+            <summary>
+            Пароль пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.User.Description">
+            <summary>
+            Описание пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.User.Photo">
+            <summary>
+            Фото (аватар) пользователя
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Data.UserSubs">
+            <summary>
+            Подписки пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.UserSubs.Id">
+            <summary>
+            Id подписки
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.UserSubs.Users">
+            <summary>
+            Список id, на которых подписан пользователь
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.UserSub.Id">
+            <summary>
+            Id пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Data.UserSub.Date">
+            <summary>
+            Дата подписки
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Helpers.Mapping">
+            <summary>
+            Маппинг моделей
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Helpers.Mapping.NewsToNewsModel(OnlineBlog.Server.Data.News)">
+            <summary>
+            Маппинг модели поста
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Helpers.Mapping.UserToUserProfileModel(OnlineBlog.Server.Data.User)">
+            <summary>
+            Маппинг модели профиля
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Helpers.Mapping.UserToUserShortModel(OnlineBlog.Server.Data.User)">
+            <summary>
+            Маппинг модели сокращенного представления пользователя
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Migrations.Init">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineBlog.Server.Migrations.Init.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineBlog.Server.Migrations.Init.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineBlog.Server.Migrations.Init.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:OnlineBlog.Server.Models.NewsModel">
+            <summary>
+            Посты пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.NewsModel.Id">
+            <summary>
+            Id поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.NewsModel.Text">
+            <summary>
+            Текст поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.NewsModel.Image">
+            <summary>
+            Изображение поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.NewsModel.LikesCount">
+            <summary>
+            Количество лайков у поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.NewsModel.PostDate">
+            <summary>
+            Дата публикации поста
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Models.UserModel">
+            <summary>
+            Пользователь
+            </summary> 
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserModel.Id">
+            <summary>
+            Id пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserModel.FirstName">
+            <summary>
+            Имя пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserModel.LastName">
+            <summary>
+            Фамилия пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserModel.Email">
+            <summary>
+            Email пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserModel.Password">
+            <summary>
+            Пароль пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserModel.Description">
+            <summary>
+            Описание пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserModel.Photo">
+            <summary>
+            Фото (аватар) пользователя
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Models.UserProfileModel">
+            <summary>
+            Отображение профиля
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserProfileModel.Id">
+            <summary>
+            Id пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserProfileModel.FirstName">
+            <summary>
+            Имя пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserProfileModel.LastName">
+            <summary>
+            Фамилия пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserProfileModel.Email">
+            <summary>
+            Email пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserProfileModel.Description">
+            <summary>
+            Описание пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserProfileModel.Photo">
+            <summary>
+            Фото (аватар) пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserProfileModel.SubsCount">
+            <summary>
+            Количество подписок пользователя
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Models.UserShortModel">
+            <summary>
+            Укороченное представление пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserShortModel.Id">
+            <summary>
+            Id пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserShortModel.FirstName">
+            <summary>
+            Имя пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserShortModel.LastName">
+            <summary>
+            Фамилия пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserShortModel.Description">
+            <summary>
+            Описание пользователя
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.UserShortModel.Photo">
+            <summary>
+            Фото (аватар) пользователя
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Services.LikesService">
+            <summary>
+            Сервис лайков
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.LikesService.SetLike(System.Guid,System.Guid)">
+            <summary>
+            Поставить лайк
+            </summary>
+            <param name="newsId">
+            Id поста, которому ставят лайк
+            </param>
+            <param name="userId">
+            Id пользователя, который ставит лайк
+            </param>
+        </member>
+        <member name="T:OnlineBlog.Server.Services.NewsService">
+            <summary>
+            Сервис постов
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.NewsService.Create(OnlineBlog.Server.Models.NewsModel,System.Guid)">
+            <summary>
+            Создать пост
+            </summary>
+            <param name="newsModel">
+            Пост
+            </param>
+            <param name="authorId">
+            Id пользователя
+            </param>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.NewsService.GetByAuthor(System.Guid)">
+            <summary>
+            Получить пост автора
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.NewsService.GetNewsForCurrentUser(System.Guid)">
+            <summary>
+            Получить посты пользователя на основе подписок
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.NewsService.Update(OnlineBlog.Server.Models.NewsModel,System.Guid)">
+            <summary>
+            Редактировать пост
+            </summary>
+            <param name="newsModel">
+            Пост
+            </param>
+            <param name="authorId">
+            Id пользователя
+            </param>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.NewsService.Delete(System.Guid,System.Guid)">
+            <summary>
+            Удалить пост
+            </summary>
+            <param name="newsId">
+            Id поста
+            </param>
+            <param name="authorId">
+            Id пользователя
+            </param>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.NewsService.CreateTemp(System.Collections.Generic.List{OnlineBlog.Server.Models.NewsModel},System.Guid)">
+            <summary>
+            Создать посты массово, временно
+            </summary>        
+        </member>
+        <member name="T:OnlineBlog.Server.Services.SubsService">
+            <summary>
+            Сервис подписок
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.SubsService.Subscribe(System.Guid,System.Guid)">
+            <summary>
+            Подписаться на пользователя
+            </summary>
+            <param name="from">
+            Id пользователя, который подписывается
+            </param>
+            <param name="to">
+            Id пользователя, на которого подписываются
+            </param>
+        </member>
+        <member name="T:OnlineBlog.Server.Services.UsersService">
+            <summary>
+            Сервис пользователей
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.UsersService.Create(OnlineBlog.Server.Models.UserModel)">
+            <summary>
+            Создать пользователя
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.UsersService.GetUserByEmail(System.String)">
+            <summary>
+            Получить пользователя по Email
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.UsersService.GetUserProfileById(System.Guid)">
+            <summary>
+            Получить профайл пользователя по Id
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.UsersService.GetUsersByName(System.String)">
+            <summary>
+            Найти всех пользователей по имени/фамилии
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.UsersService.Update(OnlineBlog.Server.Models.UserModel)">
+            <summary>
+            Редактировать пользователя
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.UsersService.Delete(OnlineBlog.Server.Data.User)">
+            <summary>
+            Удалить пользователя
+            </summary>
+        </member>
+        <member name="M:OnlineBlog.Server.Services.UsersService.CreateTemp(System.Collections.Generic.List{OnlineBlog.Server.Models.UserModel})">
+            <summary>
+            Создать пользователей массово, временно
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Token.AuthOptions">
+            <summary>
+            Настройки Jwt токена
+            </summary>
+        </member>
+        <member name="T:OnlineBlog.Server.Token.AuthToken">
+            <summary>
+            Jwt токен авторизации пользователя
+            </summary>
+        </member>
+    </members>
+</doc>

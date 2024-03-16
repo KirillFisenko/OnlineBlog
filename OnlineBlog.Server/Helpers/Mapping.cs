@@ -68,18 +68,18 @@ namespace OnlineBlog.Server.Helpers
             }
         }
 
-        public UserModel UserProfileModelToUserModel(UserProfileModel user)
-        {
-            return new UserModel()
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Description = user.Description,
-                Photo = user.Photo
-            };
-        }
+        //public UserModel UserProfileModelToUserModel(UserProfileModel user)
+        //{
+        //    return new UserModel()
+        //    {
+        //        Id = user.Id,
+        //        FirstName = user.FirstName,
+        //        LastName = user.LastName,
+        //        Email = user.Email,
+        //        Description = user.Description,
+        //        Photo = user.Photo
+        //    };
+        //}
 
         /// <summary>
         /// Маппинг модели сокращенного представления пользователя

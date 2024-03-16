@@ -33,7 +33,7 @@
         /// <summary>
         /// Фото (аватар) пользователя
         /// </summary>
-        public byte[]? Photo { get; set; }
+        public object? Photo { get; set; }
 
         /// <summary>
         /// Количество подписок пользователя
