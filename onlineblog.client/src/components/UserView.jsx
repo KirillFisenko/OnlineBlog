@@ -1,15 +1,24 @@
 import ImageComponent from './ImageComponent';
 import { NewsByUser } from './News';
-import './UserProfile.css';
+import NewsCreation from './NewsCreation';
+import ModalButton from './ModalButton';
+import { PROFILE_URL } from '../services/commonService';
+import { createNews } from "../services/newsService";
 
 const UserView = ({ user }) => {
+
+    const addNewNews = async (news) => {
+        await createNews(news);
+        window.location.href = PROFILE_URL;
+    }
+
     return (
         // отображения страницы профиля
         <div>
             <h2>{user.firstName} {user.lastName}</h2>
-            <div className="user-profile-container" style={{ display: 'flex', flexDirection: 'row' }}>
-                <div className="user-profile-container" style={{ width: '50%' }}>
-                    <div className="image=box">
+            <div>
+                <div>
+                    <div>
                         <ImageComponent base64String={user.photo} />
                     </div>
                     <p><strong>Имя:</strong> {user.firstName}</p>
@@ -18,6 +27,7 @@ const UserView = ({ user }) => {
                     <p><strong>О себе:</strong> {user.description}</p>
                 </div>
             </div>
+            <ModalButton btnName={'Создать пост'} modalContent={<NewsCreation id={0} oldText={''} oldImage={''} setAction={addNewNews} />} title={'Создать пост'} />
             {<NewsByUser userId={user.id} />}
         </div>
     )

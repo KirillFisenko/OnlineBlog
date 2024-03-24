@@ -3,17 +3,16 @@ import { createUser } from '../services/userService';
 
 const SignUp = () => {
 
-    const userDefault = {        
+    const userDefault = {
         firstName: '',
         lastName: '',
-        email: '',     
-        password: '',       
-        description: '',            
+        email: '',
+        password: '',
+        description: '',
         photo: ''
     }
     const signupAction = (newUser) => {
         createUser(newUser);
-        // openLoginPage();
     }
 
     const openLoginPage = () => {
@@ -22,9 +21,8 @@ const SignUp = () => {
     return (
         <div>
             <UserProfileCreation user={userDefault} setAction={signupAction} />
-            <button className="btn btn-link" onClick={openLoginPage}>Отмена</button>
+            <button onClick={openLoginPage}>Отмена</button>
         </div>
-
     )
 }
 

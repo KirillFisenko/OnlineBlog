@@ -41,8 +41,13 @@ async function sendAuthenticatedRequest(url, method, username, password, data) {
     var resultFetch = await fetch(url, requestOptions);
     if (resultFetch.ok) {
         // Запрос успешно выполнен
-        const result = await resultFetch.json();
-        return result
+        try{
+            const result = await resultFetch.json();
+            return result;
+        }
+        catch {
+            return;
+        }
     } else {
         // Произошла ошибка при выполнении запроса
         throw new Error('Ошибка ' + resultFetch.status + ': ' + resultFetch.statusText);
@@ -71,9 +76,15 @@ export async function sendRequestWithToken(url, method, data, withToken = true) 
     // Отправляем запрос с помощью fetch
     var resultFetch = await fetch(url, requestOptions);
     if (resultFetch.ok) {
-        // Запрос успешно выполнен
-        const result = await resultFetch.json();
-        return result
+        try {
+            // Запрос успешно выполнен
+            const result = await resultFetch.json();
+            return result
+        }
+        catch {
+            return;
+        }
+
     } else {
         // Произошла ошибка при выполнении запроса
         errorRequest(resultFetch.status);
@@ -93,7 +104,7 @@ export function clearStore() {
 }
 
 export function isUserOnline() {
-    if(localStorage.getItem(ISONLINE_NAME) == '1'){
+    if (localStorage.getItem(ISONLINE_NAME) == '1') {
         return true;
     }
     return false;

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { exitFromProfile, getUser, updateUser } from '../services/userService';
 import UserProfileCreation from './UserProfileCreation';
 import ModalButton from './ModalButton';
-import './UserProfile.css';
 import UserView from './UserView';
 
 const UserProfile = () => {
@@ -32,8 +31,8 @@ const UserProfile = () => {
         // отображения страницы профиля
         <div>
             <div>
-                <ModalButton modalContent={<UserProfileCreation user={user} setAction={updateUserView} />} title={'Редактирование профиля'} />
-                <button type="button" className="btn btn-secondary" onClick={exitFromProfile}>Выход</button>
+                <ModalButton btnName={'Редактирование профиля'} modalContent={<UserProfileCreation user={user} setAction={updateUserView} />} title={'Редактирование профиля'} />
+                <button type="button" onClick={exitFromProfile}>Выход</button>
             </div>
             <UserView user={user} />
         </div >

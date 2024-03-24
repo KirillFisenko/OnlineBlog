@@ -303,7 +303,7 @@
             Маппинг моделей
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Helpers.Mapping.NewsToNewsModel(OnlineBlog.Server.Data.News)">
+        <member name="M:OnlineBlog.Server.Helpers.Mapping.NewsToNewsViewModel(OnlineBlog.Server.Data.News)">
             <summary>
             Маппинг модели поста
             </summary>
@@ -356,6 +356,31 @@
             </summary>
         </member>
         <member name="P:OnlineBlog.Server.Models.NewsModel.PostDate">
+            <summary>
+            Дата публикации поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.NewsViewModel.Id">
+            <summary>
+            Id поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.NewsViewModel.Text">
+            <summary>
+            Текст поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.NewsViewModel.Image">
+            <summary>
+            Изображение поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.NewsViewModel.LikesCount">
+            <summary>
+            Количество лайков у поста
+            </summary>
+        </member>
+        <member name="P:OnlineBlog.Server.Models.NewsViewModel.PostDate">
             <summary>
             Дата публикации поста
             </summary>

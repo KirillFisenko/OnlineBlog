@@ -1,9 +1,6 @@
 ﻿namespace OnlineBlog.Server.Models
 {
-    /// <summary>
-    /// Посты пользователя
-    /// </summary>
-    public class NewsModel
+    public class NewsViewModel
     {
         /// <summary>
         /// Id поста
@@ -18,7 +15,7 @@
         /// <summary>
         /// Изображение поста
         /// </summary>
-        public string? Image { get; set; }
+        public object? Image { get; set; }
 
         /// <summary>
         /// Количество лайков у поста

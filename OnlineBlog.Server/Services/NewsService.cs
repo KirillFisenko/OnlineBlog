@@ -34,27 +34,27 @@ namespace OnlineBlog.Server.Services
             var newNews = new News()
             {
                 AuthorId = authorId,
-                Image = newsModel.Image,
+                Image = ImageService.GetPhoto(newsModel.Image),
                 Text = newsModel.Text,
                 PostDate = DateTime.Now
             };
             _dataContext.News.Add(newNews);
             _dataContext.SaveChanges();
             newsModel.Id = newNews.Id;
-            newsModel = _mapping.NewsToNewsModel(newNews);
+            newsModel.PostDate = newNews.PostDate;
             return newsModel;
         }
 
         /// <summary>
         /// Получить пост автора
         /// </summary>
-        public List<NewsModel> GetByAuthor(Guid authorId)
+        public List<NewsViewModel> GetByAuthor(Guid authorId)
         {
             var news = _dataContext.News
                 .Where(n => n.AuthorId == authorId)
                 .OrderBy(n => n.PostDate)
                 .Reverse()
-                .Select(_mapping.NewsToNewsModel)
+                .Select(_mapping.NewsToNewsViewModel)
                 .ToList();
             return news;
         }
@@ -62,16 +62,16 @@ namespace OnlineBlog.Server.Services
         /// <summary>
         /// Получить посты пользователя на основе подписок
         /// </summary>
-        public List<NewsModel> GetNewsForCurrentUser(Guid authorId)
+        public List<NewsViewModel> GetNewsForCurrentUser(Guid authorId)
         {
             var subs = _noSQLDataService.GetUserSubs(authorId);
-            var allNews = new List<NewsModel>();
+            var allNews = new List<NewsViewModel>();
             if (subs != null)
             {
                 foreach (var sub in subs.Users)
                 {
                     var allNewsByAuthor = _dataContext.News.Where(n => n.AuthorId == sub.Id);
-                    allNews.AddRange(allNewsByAuthor.Select(_mapping.NewsToNewsModel));
+                    allNews.AddRange(allNewsByAuthor.Select(_mapping.NewsToNewsViewModel));
                 }
             }
             return allNews.OrderByDescending(n => n.PostDate).ToList();
@@ -86,19 +86,28 @@ namespace OnlineBlog.Server.Services
         /// <param name="authorId">
         /// Id пользователя
         /// </param>
-        public NewsModel Update(NewsModel newsModel, Guid authorId)
+        public NewsViewModel Update(NewsModel newsModel, Guid authorId)
         {
             var newsToUpdate = _dataContext.News.FirstOrDefault(n => n.Id == newsModel.Id && n.AuthorId == authorId);
+
             if (newsToUpdate == null)
             {
                 return null;
             }
-            newsToUpdate.Image = newsModel.Image;
+
+            newsToUpdate.Image = ImageService.GetPhoto(newsModel.Image);
             newsToUpdate.Text = newsModel.Text;
+            var photo = ImageService.GetPhoto(newsModel.Image);
+
+            if (!(newsToUpdate.Image.Length > 10 && photo.Length < 10))
+            {
+                newsToUpdate.Image = photo;
+            }
+
             _dataContext.News.Update(newsToUpdate);
             _dataContext.SaveChanges();
-            newsModel = _mapping.NewsToNewsModel(newsToUpdate);
-            return newsModel;
+            var newsView = _mapping.NewsToNewsViewModel(newsToUpdate);
+            return newsView;
         }
 
         /// <summary>
@@ -131,7 +140,7 @@ namespace OnlineBlog.Server.Services
                 var newNews = new News()
                 {
                     AuthorId = authorId,
-                    Image = news.Image,
+                    Image = ImageService.GetPhoto(news.Image),
                     Text = news.Text,
                     PostDate = DateTime.Now
                 };

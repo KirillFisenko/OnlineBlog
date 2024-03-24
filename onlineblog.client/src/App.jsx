@@ -9,12 +9,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<Login />} /> */}
+        {<Route path="/" element={<Login />} />}
         <Route path='login' element={<Login />} />
         <Route path='profile' element={<UserProfile />} />
         <Route path='signup' element={<SignUp />} />
         <Route path='all/:userId' element={<UserPublicView />} />
-        <Route path='/all' element={<SearchUser />} />
+        <Route path='all' element={<SearchUser />} />
       </Routes>
     </BrowserRouter>
   );

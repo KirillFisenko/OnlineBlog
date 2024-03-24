@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import UserView from './UserView';
 import { getPublicUser } from '../services/userService';
-import './UserProfile.css';
 
 const UserPublicView = () => {
     const [user, setUser] = useState({

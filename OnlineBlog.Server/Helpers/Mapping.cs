@@ -18,10 +18,10 @@ namespace OnlineBlog.Server.Helpers
         /// <summary>
         /// Маппинг модели поста
         /// </summary>
-        public NewsModel NewsToNewsModel(News news)
+        public NewsViewModel NewsToNewsViewModel(News news)
         {
             var likes = _noSQLDataService.GetNewsLike(news.Id)?.Users?.Count() ?? 0;
-            return new NewsModel()
+            return new NewsViewModel()
             {
                 Id = news.Id,
                 Text = news.Text,
