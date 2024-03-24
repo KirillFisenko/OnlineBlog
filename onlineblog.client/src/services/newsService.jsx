@@ -1,7 +1,11 @@
-import { NEWS_URL, sendRequestWithToken } from "C:/Users/justi/source/repos/OnlineBlog/onlineblog.client/src/services/commonService";
+import {NEWS_URL, sendRequestWithToken } from "./commonService";
 
 export async function getNewsByUser(userId) {
     const allNews = await sendRequestWithToken(`${NEWS_URL}/${userId}`, 'GET');
+    return allNews;
+}
+export async function getNews() {
+    const allNews = await sendRequestWithToken(`${NEWS_URL}`, 'GET');
     return allNews;
 }
 
@@ -17,6 +21,6 @@ export async function updateNews(newNews) {
     return news;
 }
 
-export async function deleteNews(newId) {    
-    await sendRequestWithToken(`${NEWS_URL}/${newId}`, 'DELETE');    
+export async function deleteNews(newsId) {
+    await sendRequestWithToken(`${NEWS_URL}/${newsId}`, 'DELETE');
 }

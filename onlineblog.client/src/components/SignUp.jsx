@@ -1,29 +1,33 @@
+import { LOGIN_URL } from "../services/commonService"
+import { createUser } from "../services/usersService"
 import UserProfileCreation from "./UserProfileCreation"
-import { createUser } from '../services/userService';
+
 
 const SignUp = () => {
 
     const userDefault = {
+        
         firstName: '',
         lastName: '',
         email: '',
         password: '',
         description: '',
-        photo: ''
+        photo: '',
     }
-    const signupAction = (newUser) => {
+
+    const signupAction = (newUser)=> {
         createUser(newUser);
     }
 
-    const openLoginPage = () => {
-        window.location.href = 'login';
+    const openLoginPage = ()=> {
+        window.location.href = LOGIN_URL;
     }
     return (
         <div>
-            <UserProfileCreation user={userDefault} setAction={signupAction} />
-            <button onClick={openLoginPage}>Отмена</button>
+            <UserProfileCreation user={userDefault} setAction = {signupAction}/>
+            <button className="btn btn-link" onClick={openLoginPage}>Sign in</button>
         </div>
     )
 }
 
-export default SignUp
+export default SignUp;

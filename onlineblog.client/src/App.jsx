@@ -1,9 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './components/Login';
+
 import UserProfile from './components/UserProfile';
-import SignUp from './components/SignUp';
+
 import UserPublicView from './components/UserPublicView';
 import SearchUser from './components/SearchUser';
+
+import { NewsForUser } from "./components/News";
+import Login from "./components/Login";
+
+import SignUp from "./components/SignUp";
+
+
 
 function App() {
   return (
@@ -15,6 +22,7 @@ function App() {
         <Route path='signup' element={<SignUp />} />
         <Route path='all/:userId' element={<UserPublicView />} />
         <Route path='all' element={<SearchUser />} />
+        <Route path='/allnews' element={<NewsForUser />} />
       </Routes>
     </BrowserRouter>
   );

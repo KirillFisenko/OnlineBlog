@@ -1,11 +1,11 @@
-import ImageComponent from './ImageComponent';
-import { NewsByUser } from './News';
-import NewsCreation from './NewsCreation';
-import ModalButton from './ModalButton';
 import { PROFILE_URL } from '../services/commonService';
-import { createNews } from "../services/newsService";
+import { createNews } from '../services/newsService';
+import ImageComponent from './ImageComponent';
+import ModalButton from './ModalButton';
+import { NewsByUser, NewsProfileView } from './News';
+import NewsCreation from './NewsCreation';
 
-const UserView = ({ user }) => {
+const UserView = ({ user, isProfile }) => {
 
     const addNewNews = async (news) => {
         await createNews(news);
@@ -13,22 +13,39 @@ const UserView = ({ user }) => {
     }
 
     return (
-        // отображения страницы профиля
         <div>
             <h2>{user.firstName} {user.lastName}</h2>
-            <div>
-                <div>
-                    <div>
-                        <ImageComponent base64String={user.photo} />
+            <div style={
+                {
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center'
+                }}>
+                <div className='image-box' style={{ width: '50%' }}>
+                    <ImageComponent base64String={user.photo} />
+                </div>
+                <div className='user-data' style={{ margin: '0 10%' }}>
+                    <p>Email: {user.email}</p>
+                    <p>Description: {user.description}</p>
+                    <div style={
+                        {
+                            display: 'flex',
+                            justifyContent: 'space-around'
+                        }}>
                     </div>
-                    <p><strong>Имя:</strong> {user.firstName}</p>
-                    <p><strong>Фамилия:</strong> {user.lastName}</p>
-                    <p><strong>Email:</strong> {user.email}</p>
-                    <p><strong>О себе:</strong> {user.description}</p>
                 </div>
             </div>
-            <ModalButton btnName={'Создать пост'} modalContent={<NewsCreation id={0} oldText={''} oldImage={''} setAction={addNewNews} />} title={'Создать пост'} />
-            {<NewsByUser userId={user.id} />}
+
+            {isProfile ?
+                <div>
+                    <ModalButton
+                        btnName={'Add post'}
+                        modalContent={<NewsCreation id={0} oldtext={''} oldImage={''} setAction={addNewNews} />}
+                        title={'New post'} />
+                    <NewsProfileView userId={user.id} />
+                </div> :
+
+                <NewsByUser userId={user.id} />}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { getToken, SIGNUP_URL } from "C:/Users/justi/source/repos/OnlineBlog/onlineblog.client/src/services/commonService";
+import { SIGNUP_URL, getToken } from "../services/commonService";
 
-// страница входа
+
 const Login = () => {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
@@ -10,20 +10,18 @@ const Login = () => {
         getToken(username, password);
     }
 
-    const registerBtnClick = () => {
+    const registerBtnClick = ()=> {
         window.location.href = SIGNUP_URL;
     }
 
     return (
         <div>
-            <div>
-                <p>Логин</p>
-                <input type='text' onChange={e => setUserName(e.target.value)} />
-                <p>Пароль</p>
-                <input type='password' onChange={e => setPassword(e.target.value)} />
-                <button onClick={enterClick}>Войти</button>
-                <button onClick={registerBtnClick}>Зарегистрироваться</button>
-            </div>
+            <p>Login</p>
+             <input type='text' onChange={e => setUserName(e.target.value)}/>
+            <p>Password</p>
+            <input type='password' onChange={e => setPassword(e.target.value)}/>
+            <button className="btn btn-primary" onClick={enterClick}>Enter</button>
+            <button className="btn btn-link" onClick={registerBtnClick}>Sign up</button>
         </div>
     );
 }

@@ -28,6 +28,6 @@
         /// <summary>
         /// Дата публикации поста
         /// </summary>
-        public DateTime PostDate { get; set; }
+        public DateTime? PostDate { get; set; }
     }
 }

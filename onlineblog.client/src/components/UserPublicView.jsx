@@ -1,7 +1,8 @@
-import { useParams } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import UserView from './UserView';
-import { getPublicUser } from '../services/userService';
+import { useState, useEffect } from "react";
+import UserView from "./UserView";
+import { getPublicUser, subscribeToUser } from "../services/usersService";
+import { useParams } from "react-router-dom";
+
 
 const UserPublicView = () => {
     const [user, setUser] = useState({
@@ -10,26 +11,26 @@ const UserPublicView = () => {
         lastName: '',
         email: '',
         description: '',
-        photo: ''
-    });
+        photo: '',
+      });
 
-    const param = useParams();
-    const userId = param.userId;
+      const params = useParams();
+      const userId = params.userId;
 
-    useEffect(() => {
+      const subscribeClick = () => {
+        subscribeToUser(userId);
+      }
+    
+      useEffect(() => {
         const fetchUser = async () => {
-            const data = await getPublicUser(userId);
-            setUser(data);
+          const data = await getPublicUser(userId);
+          setUser(data);
         };
-
+    
         fetchUser();
-    }, []);
+      }, []);
 
-    return (
-        <div>
-            {<UserView user={user} />}
-        </div>
-    );
+      return <UserView user={user} isProfile={false}/>;
 }
 
 export default UserPublicView;
