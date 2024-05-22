@@ -23,7 +23,7 @@ namespace OnlineBlog.Server.Services
         /// <param name="to">
         /// Id пользователя, на которого подписываются
         /// </param>
-        public void Subscribe(Guid from, Guid to)
+        public void Subscribe(int from, int to)
         {
             _noSQLDataService.SetUserSubs(from, to);
         }

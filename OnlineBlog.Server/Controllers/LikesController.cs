@@ -25,7 +25,7 @@ namespace OnlineBlog.Server.Controllers
         /// Поставить лайк посту
         /// </summary>
         [HttpPost("{newsId}")]
-        public IActionResult SetLike(Guid newsId)
+        public IActionResult SetLike(int newsId)
         {
             var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)

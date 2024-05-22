@@ -8,11 +8,11 @@
         /// <summary>
         /// Id поста
         /// </summary>
-        public Guid NewsId { get; set; }
+        public int NewsId { get; set; }
 
         /// <summary>
         /// Список id пользователей, которые его лайкнули
         /// </summary>
-        public List<Guid>? Users { get; set; }
+        public List<int>? Users { get; set; }
     }
 }

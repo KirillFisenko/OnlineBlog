@@ -23,7 +23,7 @@ namespace OnlineBlog.Server.Services
         /// <param name="userId">
         /// Id пользователя, который ставит лайк
         /// </param>
-        public void SetLike(Guid newsId, Guid userId)
+        public void SetLike(int newsId, int userId)
         {
             _noSQLDataService.SetNewsLike(userId, newsId);
         }

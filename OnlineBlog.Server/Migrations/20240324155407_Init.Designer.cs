@@ -12,7 +12,7 @@ using OnlineBlog.Server.Data;
 namespace OnlineBlog.Server.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20240318174834_Init")]
+    [Migration("20240324155407_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -27,12 +27,14 @@ namespace OnlineBlog.Server.Migrations
 
             modelBuilder.Entity("OnlineBlog.Server.Data.News", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
@@ -53,9 +55,11 @@ namespace OnlineBlog.Server.Migrations
 
             modelBuilder.Entity("OnlineBlog.Server.Data.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");

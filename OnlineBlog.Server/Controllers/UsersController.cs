@@ -41,7 +41,7 @@ namespace OnlineBlog.Server.Controllers
         /// Посмотреть профиль пользователя
         /// </summary>
         [HttpGet("{userId}")]
-        public IActionResult GetUserProfileById(Guid userId)
+        public IActionResult GetUserProfileById(int userId)
         {
             var user = _usersService.GetUserProfileById(userId);
             return user == null ? NotFound() : Ok(user);

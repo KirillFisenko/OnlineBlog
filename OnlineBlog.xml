@@ -34,7 +34,7 @@
             Контроллер лайков
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Controllers.LikesController.SetLike(System.Guid)">
+        <member name="M:OnlineBlog.Server.Controllers.LikesController.SetLike(System.Int32)">
             <summary>
             Поставить лайк посту
             </summary>
@@ -49,7 +49,7 @@
             Создать пост
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Controllers.NewsController.GetByAuthor(System.Guid)">
+        <member name="M:OnlineBlog.Server.Controllers.NewsController.GetByAuthor(System.Int32)">
             <summary>
             Получить посты конкретного пользователя
             </summary>
@@ -64,7 +64,7 @@
             Редактировать пост
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Controllers.NewsController.Delete(System.Guid)">
+        <member name="M:OnlineBlog.Server.Controllers.NewsController.Delete(System.Int32)">
             <summary>
             Удалить пост
             </summary>
@@ -79,7 +79,7 @@
             Контроллер подписок
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Controllers.SubscribeController.Subscribe(System.Guid)">
+        <member name="M:OnlineBlog.Server.Controllers.SubscribeController.Subscribe(System.Int32)">
             <summary>
             Подписаться на пользователя
             </summary>
@@ -112,7 +112,7 @@
              Имя или часть имени пользователя
              </param>            
         </member>
-        <member name="M:OnlineBlog.Server.Controllers.UsersController.GetUserProfileById(System.Guid)">
+        <member name="M:OnlineBlog.Server.Controllers.UsersController.GetUserProfileById(System.Int32)">
             <summary>
             Посмотреть профиль пользователя
             </summary>
@@ -207,26 +207,26 @@
             Коллекция для лайков
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.GetUserSubs(System.Guid)">
+        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.GetUserSubs(System.Int32)">
             <summary>
             Получить подписки пользователя
             </summary>
             <param name="userId">id пользователя, подписки которого получить</param>        
         </member>
-        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.SetUserSubs(System.Guid,System.Guid)">
+        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.SetUserSubs(System.Int32,System.Int32)">
             <summary>
             Подписаться на пользователя
             </summary>
             <param name="from">кто подписывается</param>       
             <param name="to">на кого подписывается</param>  
         </member>
-        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.GetNewsLike(System.Guid)">
+        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.GetNewsLike(System.Int32)">
             <summary>
             Получить лайки поста
             </summary>
             <param name="newsId">id поста</param>        
         </member>
-        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.SetNewsLike(System.Guid,System.Guid)">
+        <member name="M:OnlineBlog.Server.Data.NoSQLDataService.SetNewsLike(System.Int32,System.Int32)">
             <summary>
             Поставить лайк посту
             </summary>
@@ -500,7 +500,7 @@
             Сервис лайков
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Services.LikesService.SetLike(System.Guid,System.Guid)">
+        <member name="M:OnlineBlog.Server.Services.LikesService.SetLike(System.Int32,System.Int32)">
             <summary>
             Поставить лайк
             </summary>
@@ -516,7 +516,7 @@
             Сервис постов
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Services.NewsService.Create(OnlineBlog.Server.Models.NewsModel,System.Guid)">
+        <member name="M:OnlineBlog.Server.Services.NewsService.Create(OnlineBlog.Server.Models.NewsModel,System.Int32)">
             <summary>
             Создать пост
             </summary>
@@ -527,17 +527,17 @@
             Id пользователя
             </param>
         </member>
-        <member name="M:OnlineBlog.Server.Services.NewsService.GetByAuthor(System.Guid)">
+        <member name="M:OnlineBlog.Server.Services.NewsService.GetByAuthor(System.Int32)">
             <summary>
             Получить пост автора
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Services.NewsService.GetNewsForCurrentUser(System.Guid)">
+        <member name="M:OnlineBlog.Server.Services.NewsService.GetNewsForCurrentUser(System.Int32)">
             <summary>
             Получить посты пользователя на основе подписок
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Services.NewsService.Update(OnlineBlog.Server.Models.NewsModel,System.Guid)">
+        <member name="M:OnlineBlog.Server.Services.NewsService.Update(OnlineBlog.Server.Models.NewsModel,System.Int32)">
             <summary>
             Редактировать пост
             </summary>
@@ -548,7 +548,7 @@
             Id пользователя
             </param>
         </member>
-        <member name="M:OnlineBlog.Server.Services.NewsService.Delete(System.Guid,System.Guid)">
+        <member name="M:OnlineBlog.Server.Services.NewsService.Delete(System.Int32,System.Int32)">
             <summary>
             Удалить пост
             </summary>
@@ -559,7 +559,7 @@
             Id пользователя
             </param>
         </member>
-        <member name="M:OnlineBlog.Server.Services.NewsService.CreateTemp(System.Collections.Generic.List{OnlineBlog.Server.Models.NewsModel},System.Guid)">
+        <member name="M:OnlineBlog.Server.Services.NewsService.CreateTemp(System.Collections.Generic.List{OnlineBlog.Server.Models.NewsModel},System.Int32)">
             <summary>
             Создать посты массово, временно
             </summary>        
@@ -569,7 +569,7 @@
             Сервис подписок
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Services.SubsService.Subscribe(System.Guid,System.Guid)">
+        <member name="M:OnlineBlog.Server.Services.SubsService.Subscribe(System.Int32,System.Int32)">
             <summary>
             Подписаться на пользователя
             </summary>
@@ -595,7 +595,7 @@
             Получить пользователя по Email
             </summary>
         </member>
-        <member name="M:OnlineBlog.Server.Services.UsersService.GetUserProfileById(System.Guid)">
+        <member name="M:OnlineBlog.Server.Services.UsersService.GetUserProfileById(System.Int32)">
             <summary>
             Получить профайл пользователя по Id
             </summary>

@@ -8,12 +8,12 @@
         /// <summary>
         /// Id поста
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Id автора поста
         /// </summary>
-        public Guid AuthorId { get; set; }
+        public int AuthorId { get; set; }
 
         /// <summary>
         /// Текст поста

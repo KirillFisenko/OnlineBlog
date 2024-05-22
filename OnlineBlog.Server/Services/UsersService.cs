@@ -48,7 +48,7 @@ namespace OnlineBlog.Server.Services
         /// <summary>
         /// Получить профайл пользователя по Id
         /// </summary>
-        public UserProfileModel GetUserProfileById(Guid userId)
+        public UserProfileModel GetUserProfileById(int userId)
         {
             return _mapping.UserToUserProfileModel(_dataContext.Users?.FirstOrDefault(user => user.Id == userId));
         }

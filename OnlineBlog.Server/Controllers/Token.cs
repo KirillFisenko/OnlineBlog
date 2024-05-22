@@ -31,7 +31,7 @@ namespace OnlineBlog.Server.Controllers
             var userData = _identityService.GetUserLoginPassFromBasicAuth(Request);
 
             // get identity
-            (ClaimsIdentity claims, Guid id)? identity = _identityService.GetIdentity(userData.login, userData.password);
+            (ClaimsIdentity claims, int id)? identity = _identityService.GetIdentity(userData.login, userData.password);
             if (identity == null)
             {
                 return NotFound("Логин или пароль не корректен");

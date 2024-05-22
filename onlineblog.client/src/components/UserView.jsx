@@ -14,7 +14,7 @@ const UserView = ({ user, isProfile }) => {
 
     return (
         <div>
-            <h2>{user.firstName} {user.lastName}</h2>
+            <h2>{user.lastName} </h2>
             <div style={
                 {
                     display: 'flex',

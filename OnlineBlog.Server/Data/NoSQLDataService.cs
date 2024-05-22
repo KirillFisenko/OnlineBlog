@@ -26,7 +26,7 @@ namespace OnlineBlog.Server.Data
         /// Получить подписки пользователя
         /// </summary>
         /// <param name="userId">id пользователя, подписки которого получить</param>        
-        public UserSubs GetUserSubs(Guid userId)
+        public UserSubs GetUserSubs(int userId)
         {
             using (var db = new LiteDatabase(DBPath))
             {
@@ -41,7 +41,7 @@ namespace OnlineBlog.Server.Data
         /// </summary>
         /// <param name="from">кто подписывается</param>       
         /// <param name="to">на кого подписывается</param>  
-        public UserSubs SetUserSubs(Guid from, Guid to)
+        public UserSubs SetUserSubs(int from, int to)
         {
             using (var db = new LiteDatabase(DBPath))
             {
@@ -80,7 +80,7 @@ namespace OnlineBlog.Server.Data
         /// Получить лайки поста
         /// </summary>
         /// <param name="newsId">id поста</param>        
-        public NewsLike GetNewsLike(Guid newsId)
+        public NewsLike GetNewsLike(int newsId)
         {
             using (var db = new LiteDatabase(DBPath))
             {
@@ -95,7 +95,7 @@ namespace OnlineBlog.Server.Data
         /// </summary>
         /// <param name="from">кто поставил лайк</param>  
         /// /// <param name="newsId">id поста</param> 
-        public NewsLike SetNewsLike(Guid from, Guid newsId)
+        public NewsLike SetNewsLike(int from, int newsId)
         {
             using (var db = new LiteDatabase(DBPath))
             {

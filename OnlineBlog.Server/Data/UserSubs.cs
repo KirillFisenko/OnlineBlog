@@ -8,7 +8,7 @@
         /// <summary>
         /// Id подписки
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Список id, на которых подписан пользователь
@@ -21,7 +21,7 @@
         /// <summary>
         /// Id пользователя
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Дата подписки

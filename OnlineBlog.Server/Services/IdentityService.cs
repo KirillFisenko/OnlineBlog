@@ -29,7 +29,7 @@ namespace OnlineBlog.Server.Services
             return (userName, userPassword);
         }
 
-        public (ClaimsIdentity identity, Guid id)? GetIdentity(string email, string password)
+        public (ClaimsIdentity identity, int id)? GetIdentity(string email, string password)
         {
             User currentUser = _usersService.GetUserByEmail(email);
             if (currentUser == null || !VerifyHashedPassword(currentUser.Password, password))

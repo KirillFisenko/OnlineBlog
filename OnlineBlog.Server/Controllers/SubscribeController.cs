@@ -24,7 +24,7 @@ namespace OnlineBlog.Server.Controllers
         /// Подписаться на пользователя
         /// </summary>
         [HttpPost("{userId}")]
-        public IActionResult Subscribe(Guid userId)
+        public IActionResult Subscribe(int userId)
         {
             var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)

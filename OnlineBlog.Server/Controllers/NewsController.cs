@@ -42,7 +42,7 @@ namespace OnlineBlog.Server.Controllers
         /// Получить посты конкретного пользователя
         /// </summary>
         [HttpGet("{authorId}")]
-        public IActionResult GetByAuthor(Guid authorId)
+        public IActionResult GetByAuthor(int authorId)
         {
             var news = _newsService.GetByAuthor(authorId);
             return news == null ? NotFound() : Ok(news);
@@ -82,7 +82,7 @@ namespace OnlineBlog.Server.Controllers
         /// Удалить пост
         /// </summary>
         [HttpDelete("{newsId}")]
-        public IActionResult Delete(Guid newsId)
+        public IActionResult Delete(int newsId)
         {
             var currentUser = _usersService.GetUserByEmail(HttpContext.User.Identity.Name);
             if (currentUser == null)

@@ -29,7 +29,7 @@ namespace OnlineBlog.Server.Services
         /// <param name="authorId">
         /// Id пользователя
         /// </param>
-        public NewsModel Create(NewsModel newsModel, Guid authorId)
+        public NewsModel Create(NewsModel newsModel, int authorId)
         {
             var newNews = new News()
             {
@@ -48,7 +48,7 @@ namespace OnlineBlog.Server.Services
         /// <summary>
         /// Получить пост автора
         /// </summary>
-        public List<NewsViewModel> GetByAuthor(Guid authorId)
+        public List<NewsViewModel> GetByAuthor(int authorId)
         {
             var news = _dataContext.News
                 .Where(n => n.AuthorId == authorId)
@@ -62,7 +62,7 @@ namespace OnlineBlog.Server.Services
         /// <summary>
         /// Получить посты пользователя на основе подписок
         /// </summary>
-        public List<NewsViewModel> GetNewsForCurrentUser(Guid authorId)
+        public List<NewsViewModel> GetNewsForCurrentUser(int authorId)
         {
             var subs = _noSQLDataService.GetUserSubs(authorId);
             var allNews = new List<NewsViewModel>();
@@ -86,7 +86,7 @@ namespace OnlineBlog.Server.Services
         /// <param name="authorId">
         /// Id пользователя
         /// </param>
-        public NewsViewModel Update(NewsModel newsModel, Guid authorId)
+        public NewsViewModel Update(NewsModel newsModel, int authorId)
         {
             var newsToUpdate = _dataContext.News.FirstOrDefault(n => n.Id == newsModel.Id && n.AuthorId == authorId);
 
@@ -119,7 +119,7 @@ namespace OnlineBlog.Server.Services
         /// <param name="authorId">
         /// Id пользователя
         /// </param>
-        public void Delete(Guid newsId, Guid authorId)
+        public void Delete(int newsId, int authorId)
         {
             var newsToDelete = _dataContext.News.FirstOrDefault(n => n.Id == newsId && n.AuthorId == authorId);
             if (newsToDelete == null)
@@ -133,7 +133,7 @@ namespace OnlineBlog.Server.Services
         /// <summary>
         /// Создать посты массово, временно
         /// </summary>        
-        public List<NewsModel> CreateTemp(List<NewsModel> newsModels, Guid authorId)
+        public List<NewsModel> CreateTemp(List<NewsModel> newsModels, int authorId)
         {
             foreach (var news in newsModels)
             {

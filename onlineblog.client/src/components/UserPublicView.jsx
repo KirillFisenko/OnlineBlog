@@ -11,7 +11,7 @@ const UserPublicView = () => {
         lastName: '',
         email: '',
         description: '',
-        photo: '',
+        photo: ''
       });
 
       const params = useParams();
