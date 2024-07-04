@@ -14,7 +14,7 @@ const UserView = ({ user, isProfile }) => {
 
     return (
         <div>
-            <h2>{user.lastName} </h2>
+            <h2>{user.lastName} {user.firstName}</h2>            
             <div style={
                 {
                     display: 'flex',
@@ -25,8 +25,8 @@ const UserView = ({ user, isProfile }) => {
                     <ImageComponent base64String={user.photo} />
                 </div>
                 <div className='user-data' style={{ margin: '0 10%' }}>
-                    <p>Email: {user.email}</p>
-                    <p>Description: {user.description}</p>
+                    <p>Почта: {user.email}</p>
+                    <p>О себе: {user.description}</p>
                     <div style={
                         {
                             display: 'flex',
@@ -39,9 +39,9 @@ const UserView = ({ user, isProfile }) => {
             {isProfile ?
                 <div>
                     <ModalButton
-                        btnName={'Add post'}
+                        btnName={'Создать пост'}
                         modalContent={<NewsCreation id={0} oldtext={''} oldImage={''} setAction={addNewNews} />}
-                        title={'New post'} />
+                        title={'Новый пост'} />
                     <NewsProfileView userId={user.id} />
                 </div> :
 

@@ -24,8 +24,7 @@ const SignUp = () => {
     }
     return (
         <div>
-            <UserProfileCreation user={userDefault} setAction = {signupAction}/>
-            <button className="btn btn-link" onClick={openLoginPage}>Sign in</button>
+            <UserProfileCreation user={userDefault} setAction = {signupAction}/>            
         </div>
     )
 }

@@ -14,7 +14,7 @@ const ModalButton = ({ modalContent, title, btnName }) => {
 
   return (
     <div>
-      <Button variant="primary" onClick={handleOpenModal}>
+      <Button variant="btn btn-sm btn-outline-primary me-2" onClick={handleOpenModal}>
         {btnName}
       </Button>
 
@@ -24,9 +24,7 @@ const ModalButton = ({ modalContent, title, btnName }) => {
         </Modal.Header>
         <Modal.Body>{modalContent}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
+          
         </Modal.Footer>
       </Modal>
     </div>

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { exitFromProfile, getUser, updateUser } from '../services/usersService';
-
 import ModalButton from './ModalButton';
-import UserProfileCreation from './UserProfileCreation';
 import UserView from './UserView';
+import UserProfileEdit from '/src/components/UserProfileEdit.jsx';
 
 const UserProfile = () => {
   const [user, setUser] = useState({
@@ -37,10 +36,9 @@ const UserProfile = () => {
         justifyContent: 'flex-end'
         }}>
         <ModalButton 
-          btnName = {'Edit'}
-          modalContent = {<UserProfileCreation user = {user} setAction={updateUserView}/>} 
-          title = {'Редактирование профиля'}/>
-        <button className="btn btn-secondary" onClick={() => exitFromProfile()}>Exit</button>
+          btnName = {'Редактировать'}
+          modalContent = {<UserProfileEdit user = {user} setAction={updateUserView}/>}           />
+        <button className="btn btn-sm btn-secondary" onClick={() => exitFromProfile()}>Выйти</button>
     </div>
     <UserView user={user} isProfile={true}/>    
     </div>

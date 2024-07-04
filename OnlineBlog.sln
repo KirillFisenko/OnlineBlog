@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineBlog.Server", "OnlineBlog.Server\OnlineBlog.Server.csproj", "{7BB5C23A-F34D-4E69-8E69-6A6030E533AE}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "onlineblog.client", "onlineblog.client\onlineblog.client.esproj", "{7047B2C3-4BC6-47C6-A2E5-283B0D60B4BD}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Onlineblog.client", "onlineblog.client\Onlineblog.client.esproj", "{7047B2C3-4BC6-47C6-A2E5-283B0D60B4BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,7 +19,6 @@ Global
 		{7BB5C23A-F34D-4E69-8E69-6A6030E533AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7047B2C3-4BC6-47C6-A2E5-283B0D60B4BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7047B2C3-4BC6-47C6-A2E5-283B0D60B4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7047B2C3-4BC6-47C6-A2E5-283B0D60B4BD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{7047B2C3-4BC6-47C6-A2E5-283B0D60B4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7047B2C3-4BC6-47C6-A2E5-283B0D60B4BD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7047B2C3-4BC6-47C6-A2E5-283B0D60B4BD}.Release|Any CPU.Deploy.0 = Release|Any CPU

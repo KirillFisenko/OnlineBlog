@@ -10,8 +10,8 @@ namespace OnlineBlog.Server.Controllers
     /// Контроллер аккаунтов
     /// </summary>
     [ApiController]
-    [Authorize] // доступ только авторизованным
-    [Route("[controller]")] // маршрут до контроллеров   
+    [Authorize]
+    [Route("[controller]")]
     public class AccountController : Controller
     {
         private UsersService _usersService;
@@ -26,7 +26,7 @@ namespace OnlineBlog.Server.Controllers
         /// Создать пользователя, регистрация
         /// </summary>
         [HttpPost]
-        [AllowAnonymous] // можно незарегистрированным пользователям
+        [AllowAnonymous]
         public IActionResult Create([FromBody] UserModel user)
         {
             var newUser = _usersService.Create(user);

@@ -330,6 +330,18 @@
         <member name="M:OnlineBlog.Server.Migrations.Init.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:OnlineBlog.Server.Migrations.Initial">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineBlog.Server.Migrations.Initial.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineBlog.Server.Migrations.Initial.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OnlineBlog.Server.Migrations.Initial.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
         <member name="T:OnlineBlog.Server.Models.NewsModel">
             <summary>
             Посты пользователя

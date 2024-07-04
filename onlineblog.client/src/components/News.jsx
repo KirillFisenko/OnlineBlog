@@ -13,40 +13,44 @@ export const News = ({ id, text, imageStr, date, updateAction }) => {
       updateAction();
     }
 
-    const  deleteNewsView = async () => {
-        await deleteNews(id);
-        updateAction();
+    const deleteNewsView = async () => {
+      await deleteNews(id);
+      updateAction();
     }
 
     return (
-        <div className='news-item'>
-            <div className="news-actions">
+        <div className='news-item card p-2 mt-4'>
+            <div className="card-body news-actions">
+                <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                 <ModalButton 
-                    btnName = {'Edit post'}
-                    modalContent = {<NewsCreation id = {id} 
+                    btnName={'Редактировать пост'}
+                    modalContent={<NewsCreation id={id} 
                         oldtext={text} 
                         oldImage={imageStr} 
-                        setAction={updateNewsView}/>} 
-                    title = {'New post'}/>
-                <button className="btn btn-danger" onClick={() => deleteNewsView()}>Delete</button>
+                        setAction={updateNewsView}/>} />
+                <button className="btn btn-sm btn-outline-danger float-end" onClick={() => deleteNewsView()}>Удалить</button>
+                </div>
+                
             </div>
             <NewsView date={date} text={text} imageStr={imageStr}/>
         </div>
     )
 }
 
-const NewsView = ({date, text, imageStr}) => {
+const NewsView = ({ date, text, imageStr }) => {
     return (
-        <div>
-            <div className="img-box">
-                <ImageComponent base64String={imageStr}/>
-            </div>
+        <div className="card-body">
             <div>
-                <p>{date}</p>
-                <p>{text}</p>
+                <p className="card-text">{date}</p>
+                <p className="card-text">{text}</p>
             </div>
-        </div>)
-        }
+            <div className="img-box text-center mt-2">
+                <ImageComponent base64String={imageStr}/>
+            </div>            
+        </div>
+    )
+}
+
 
 export const NewsProfileView = ({userId}) => {
     const [news, setNews] = useState([]);

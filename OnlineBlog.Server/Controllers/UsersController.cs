@@ -9,8 +9,8 @@ namespace OnlineBlog.Server.Controllers
     /// Контроллер пользователей
     /// </summary>
     [ApiController]
-    [Authorize] // доступ только авторизованным
-    [Route("[controller]")] // маршрут до контроллеров 
+    [Authorize]
+    [Route("[controller]")]
     public class UsersController : ControllerBase
     {
         private UsersService _usersService;

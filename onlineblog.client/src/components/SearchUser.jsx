@@ -28,7 +28,7 @@ const SearchUser = () => {
                 users !== undefined ?
                     users.map(x => <ShortUserView user={x}/>)
                     :
-                    <p>Nothing</p>}
+                    <p>Не найдено</p>}
         </div>
     )
 }
