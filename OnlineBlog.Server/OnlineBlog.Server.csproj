@@ -8,7 +8,7 @@
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:5173</SpaProxyServerUrl>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>C:\Users\justi\source\repos\OnlineBlog\OnlineBlog.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\1\source\repos\OnlineBlog\OnlineBlog.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
