@@ -14,13 +14,13 @@
     
 *Функционал на фронте реализован частично.
 
-<img src="https://github.com/user-attachments/assets/b264d9dc-5396-485a-9bdd-cad6c21f1a7b" width="210" height="300">
+<img src="https://github.com/user-attachments/assets/b264d9dc-5396-485a-9bdd-cad6c21f1a7b" width="310" height="350">
 
-<img src="https://github.com/user-attachments/assets/e598d909-0506-43b0-958e-e9bc736c18ff" width="210" height="300">
+<img src="https://github.com/user-attachments/assets/e598d909-0506-43b0-958e-e9bc736c18ff" width="310" height="350">
 
-<img src="https://github.com/user-attachments/assets/bf125277-13da-44c2-80d8-6819202bc030" width="210" height="300">
+<img src="https://github.com/user-attachments/assets/bf125277-13da-44c2-80d8-6819202bc030" width="310" height="350">
 
-<img src="https://github.com/user-attachments/assets/ed66b6d5-01a3-49ca-b8bd-bb9d36110df8" width="210" height="300">
+<img src="https://github.com/user-attachments/assets/ed66b6d5-01a3-49ca-b8bd-bb9d36110df8" width="310" height="350">
 
 ## Установка и запуск
 1) Выбрать мыльтизапуск двух приложений:
