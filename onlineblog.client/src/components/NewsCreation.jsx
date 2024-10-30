@@ -26,7 +26,7 @@ const NewsCreation = ({id, oldtext, oldImage, setAction}) => {
                 <textarea defaultValue={text} onChange={e => setText(e.target.value)}/>
                 {imageView}
                 <ImageUploader byteImageAction={(str, bytes) => {setImage(bytes); setImageStr(str)} }/>
-                <button onClick={endCreate}>Ok</button>
+                <button className="btn btn-primary w-100 py-2" onClick={endCreate}>Ok</button>
             </div>
         )
 }

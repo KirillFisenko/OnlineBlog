@@ -44,7 +44,7 @@ const NewsView = ({ date, text, imageStr }) => {
                 <p className="card-text">{date}</p>
                 <p className="card-text">{text}</p>
             </div>
-            <div className="img-box text-center mt-2">
+            <div className="img-box text-center mt-2 ">
                 <ImageComponent base64String={imageStr}/>
             </div>            
         </div>
